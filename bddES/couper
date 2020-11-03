@@ -1,0 +1,40 @@
+<?php 
+include("Utilisateur.php");
+
+/* function add(){ */
+
+    $utilisateur1 = new Utilisateur();
+    $utilisateur1->setUsername($_POST['username'])->setPassword($_POST['password'])->setProfil($_POST['profil']);
+
+    $id = $utilisateur1->getId();
+    $username = $utilisateur1->getUsername();
+    $password = $utilisateur1->getPassword();
+    $profil = $utilisateur1->getProfil();
+    
+
+    $db = new mysqli('localhost', 'root', "", 'afpa_test');    
+    
+    //On vérifie la connexion
+    if($db->connect_error){
+        die('Erreur : ' .$db->connect_error);
+    }
+    echo 'Connexion réussie';
+
+    $rs = $db->query ("INSERT INTO utilisateur (`id`, `username`, `password`, `profil`)");
+
+    $query = "INSERT INTO utilisateur (`id`, `username`, `password`, `profil`)";
+    echo $query;
+
+   /*  $stmt = $db->prepare("INSERT INTO utilisateur (`id`, `username`, `password`, `profil`)"); */
+
+ /*    $stmt->bin_param("isss", $id, $username, $password, $profil); */
+    
+/*     //* Verify request
+    if($stmt->execute()){
+        echo 'O.K';
+    } else {
+        echo 'K.O';
+    } */
+   
+    $mysqli->close();
+/* } */
