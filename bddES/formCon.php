@@ -15,13 +15,16 @@
 
 
     <form class="tableau text-center m-5" action="traitement.php?action=connexion" method="post">
-        <label for="formgr">Username :</label>
+        <div class="form-group">
+            <label for="formgr">Username :</label>
             <input required class="form text-center" type="text" name="username" class="form-control" placeholder="Saisir votre email"> <br/><br/>
-                <div class="form-group">
-                    <label for="exampleInputPassword1">Mot de passe</label>
-                        <input type="password" class="col-3 text-center" name="password" required>
-                    </div> 
-            <input class="form text-center btn btn-primary" type="submit" value="Connexion"> 
+        </div>        
+        <div class="form-group">
+            <label for="exampleInputPassword1">Mot de passe</label>
+            <input type="password" class="col-3 text-center" name="password" required>
+        </div> 
+            
+            <button class="form text-center btn btn-primary" type="submit" >Connexion</button> 
 </form>
 
 </body>

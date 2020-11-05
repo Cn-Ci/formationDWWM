@@ -21,8 +21,8 @@
     </div> 
     
     
-    <input class="form text-center btn btn-primary" type="submit" value="Envoyez"> 
-</form>
+        <button class="form text-center btn btn-primary" type="submit" >Envoyez</button> 
+    </form>
 
 </body>
 </html>

@@ -1,78 +1,58 @@
 <?php 
+include_once ('Utilisateur.php');
 
-function inserUtil($username, $password, $profil) {
-    $utilisateur1 = new Utilisateur();
-    $utilisateur1->setUsername($username)->setPassword($password)->setProfil($profil);
+        function inserUtil($username, $password) {
+            $utilisateur1 = new Utilisateur();
+            $utilisateur1->setUsername($username)->setPassword($password);
 
-    $id = $utilisateur1->getId();
-    $username = $utilisateur1->getUsername();
-    $password = $utilisateur1->getPassword();
-    $profil = $utilisateur1->getProfil();
-
-
-    $db = new mysqli('localhost', 'root', "", 'afpa_test');    
-    
-    //On vérifie la connexion
-    if($db->connect_error){
-        die('Erreur : ' .$db->connect_error);
-    }
-    echo 'Connexion réussie ';
-
-    $stmt = $db->prepare("INSERT INTO utilisateur values ( NULL, ?, ?, ?)");
+            $id = $utilisateur1->getId();
+            $username = $utilisateur1->getUsername();
+            $password = $utilisateur1->getPassword();
 
 
-  /*   $query = "INSERT INTO utilisateur values(NULL, '$username', '$password', '$profil')";
-    echo $query; */
+            $db = new mysqli('localhost', 'root', "", 'afpa_test');    
+            
+            //On vérifie la connexion
+            if($db->connect_error){
+                die('Erreur : ' .$db->connect_error);
+            }
 
-   /*  $stmt = $db->prepare("INSERT INTO utilisateur (`id`, `username`, `password`, `profil`)"); */
-    
+            $stmt = $db->prepare("INSERT INTO utilisateur values ( NULL, ?, ?, 'utilisateur')");
+            $stmt->bind_param("ss", $username, $password); 
+            $stmt->execute();
+            
+            //* Verify request
+            if(!$stmt->execute()){
+                echo 'K.O';
+            }
+        
+            $db->close();
+
+        } 
+
+
+        function researchutilisateurMail($username) {
    
-    $stmt->bind_param("sss", $username, $password, $profil); 
-    
-     //* Verify request
-    if($stmt->execute()){
-        echo 'O.K';
-    } else {
-        echo 'K.O';
-    }
-   
-    $db->close();
-
-} 
-
-function verif($username, $password) {
-   
-    if (isset($username)) {
-
-    $db = new mysqli('localhost', 'root', "", 'afpa_test');    
+            $db = new mysqli('localhost', 'root', "", 'afpa_test'); 
  
 
             if($db->connect_error){
                 die('Erreur : ' .$db->connect_error);
             }
 
-            $query = "SELECT username,password FROM utilisateur WHERE username = ?";
+            $query = "SELECT * FROM utilisateur WHERE username = ?";
             $stmt = $db->prepare($query);
             $stmt->bind_param("s", $username);
             $stmt->execute();
             $rs = $stmt->get_result();
             $data= $rs->fetch_array(MYSQLI_ASSOC);
 
-            if (isset($data) && isset($password)) 
-            {
-                
-                $trouve = password_verify($password,$data['password']);
-                echo "Connexion réussie"; 
-                return $trouve;
-                
+            $rs->free();
+            $db->close(); 
 
-            }else
-            echo "echec connexion";
-            
+            return $data;
+        }
 
-        mysqli_free_result($rs); 
-        mysqli_close($db); 
-    }
+
        
-}
 

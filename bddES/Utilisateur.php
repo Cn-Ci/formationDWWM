@@ -4,7 +4,7 @@ Class Utilisateur {
     private $id;
     private $username;
     private $password;
-    public static $profil = 'utilisateur';
+    private $profil;
 
 
     public function __toString() :string
@@ -52,7 +52,7 @@ Class Utilisateur {
      */ 
     public function setPassword(string $password) : self
     {
-        $this->password = password_hash($password, PASSWORD_DEFAULT);
+        $this->password = $password;
 
         return $this;
     }
