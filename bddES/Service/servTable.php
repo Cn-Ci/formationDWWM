@@ -1,3 +1,15 @@
+<?php
+        
+include('crudServ.php');
+session_start (); 
+
+if (!isset ($_SESSION['username'])) 
+{
+    header('location : formCon.php');
+}
+           
+?>
+
 <!DOCTYPE html>
 <html lang="fr">
     <head>
@@ -20,9 +32,6 @@
 
     <body>
         <?php 
-
-            include 'crud.php';
-            
             //*ADD SERV
             if (isset($_POST['add'])){
                 add($_POST['noserv'],$_POST['service'],$_POST['ville']);
@@ -46,8 +55,15 @@
                                     <th scope="col">noserv</th>
                                     <th scope="col">service</th>
                                     <th scope="col">ville</th>
+                                    <?php
+                                        if (isset($_SESSION['profil']) && $_SESSION['profil'] == "administrateur") 
+                                        {
+                                    ?>
                                     <th scope="col">Modification</th>
                                     <th scope="col">Suppression</th>
+                                    <?php
+                                        }
+                                    ?>
                                 </tr>
                             </thead>
                         
@@ -57,12 +73,20 @@
                                     $i = 0;
                                     foreach ($data as $key => $value) {
                                         echo "<tr id=trNo-".$i.">";
-                                        foreach ($value as $k => $v) {
-                                            echo "<td>$v</td>";
-                                        }?>
-                                        <td><a type='button' class='btn btn-primary' href='formServ.php?action=modif&noserv=<?php echo $value["noserv"];?>'>Modifier</a></td>";
-
+                                            foreach ($value as $k => $v) {
+                                                echo "<td>$v</td>";
+                                            }
+                                        if (isset($_SESSION['profil']) && $_SESSION['profil'] == "administrateur") 
+                                        {
+                                        
+                                        ?>
+                                            <td>   
+                                                <a type='button' class='btn btn-primary' href='formServ.php?action=modif&noserv=<?php echo $value["noserv"];?>'>Modifier</a>
+                                            </td>
                                         <?php
+                                        }
+                            
+                                        
                                         $supr = supoupas();
                                         $tail=count($supr);
 
@@ -74,28 +98,28 @@
                                                 
                                                 $trouve = true;
                                             break;
-                                            }
+                                            } 
                                         }
 
-                                        if (!$trouve) {
-                                        
+                                            if (!$trouve && $_SESSION['profil'] == "administrateur") {
+                                            
                                         ?>
-
-                                        <td><a type='button' class='btn btn-danger' href='servTable.php?action=delete&noserv=<?php echo $value["noserv"]; ?>'>Supprimer</a></td>";
-                                        </tr>;<?php 
-                                         }else {
-                                            echo "Non-supr !";
-                                        }
-                                        $i++;
-                                    }                        
+                                                <td>
+                                                    <a type='button' class='btn btn-danger' href='servTable.php?action=delete&noserv=<?php echo $value["noserv"]; ?>'>Supprimer</a>
+                                                </td>
+                                            </tr>
+                                        <?php 
+                                            
+                                            }   
+                                        
+                                    } 
                                 ?>
                             </tbody>
                         </table>
                         <a href="formServ.php?action=ajouter"><button type="submit" class="btn btn-primary">+ Ajouter un service</button></a>
                         <a href="../Employe/bdd1.php "><button type="submit" class="btn btn-primary">Voir la table employes</button></a>
-                    </div><?php
-                  
-                ?><div class="col-sm-1"></div>
+                    </div>
+                </div>
             </div>
         </div>
     </body>

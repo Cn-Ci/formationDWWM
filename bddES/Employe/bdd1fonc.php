@@ -1,3 +1,14 @@
+<?php
+        
+include ('crudPoo.php');
+session_start (); 
+
+if (!isset ($_SESSION['username'])) 
+{
+    header('location : formCon.php');
+}
+           
+?>
 
 <!DOCTYPE html>
     <html lang="en">
@@ -13,33 +24,53 @@
 <div class="container">
 <?php
 
-include 'crud.php';
 
+if  (isset($_POST['ajouter']) )
+{
 
-if  (isset($_POST['ajouter']) 
-){
-                add($_POST['no_emp'], $_POST['nom'],$_POST['prenom'],$_POST['emploi'],$_POST['embauche'], $_POST['sal'], $_POST['comm'], $_POST['noserv'], $_POST['sup'], $_POST['noproj']);
+   /*  $noemp = $_POST['no_emp'];
+    $nom= is_null($_POST['nom']) ? 'NULL' : $_POST['nom'];
+    $prenom= is_null($_POST['prenom']) ? 'NULL' : $_POST['prenom'];
+    $emploi = is_null($_POST['emploi']) ? 'NULL' : $_POST['emploi'];
+    $embauche = is_null($_POST['embauche']) ? 'NULL' : $_POST['embauche'];
+    $sal = is_null($_POST['sal']) ? 'NULL' : $_POST['sal'];
+    $comm = is_null($_POST['comm']) ? 'NULL' : $_POST['comm'];
+    $noserv = is_null($_POST['noserv']) ? 'NULL' : $_POST['noserv'];
+    $sup = is_null($_POST['sup']) ? 'NULL' : $_POST['sup'];
+    $noproj = is_null($_POST['noproj']) ? 'NULL' : $_POST['noproj'];
+
+    $employe = new Employe();
+    $employe->setNoemp($noemp)
+            ->setNom($nom) 
+            ->setPrenom($prenom)
+            ->setEmploi($emploi)
+            ->setEmbauche($embauche)
+            ->setSalaire($sal)
+            ->setCommission($comm)
+            ->setSup($sup)
+            ->setNoService($noserv)
+            ->setNoProj($noproj);
+            
+            add($employe); */
+    add($post);
 }
 
-elseif (isset($_POST['modifier'])
-){
-                modifier($_POST['no_emp'], $_POST['nom'],$_POST['prenom'],$_POST['emploi'],$_POST['embauche'], $_POST['sal'], $_POST['comm'], $_POST['noserv'], $_POST['sup'], $_POST['noproj']);
+elseif (isset($_POST['modifier']))
+{
+    modifier($post);
 }
 
-elseif (isset($_POST['supprimer'])
-){
-                supprimer ($_POST['no_emp']) ;
+elseif (isset($_POST['supprimer']))
+{
+    supprimer ($no_emp) ;
 }
 
-
-
-
-if (isset($_GET['page'])){
-
-    if($_GET['page'] == 'ajouter' || $_GET['page'] == 'modifier'){
-
-        if ($_GET['page'] == 'ajouter'){
-
+if (isset($_GET['page']))
+{
+    if($_GET['page'] == 'ajouter' || $_GET['page'] == 'modifier')
+    {
+        if ($_GET['page'] == 'ajouter')
+        {
             $no_emp = '';
             $nom = '';
             $prenom = '';
@@ -51,33 +82,39 @@ if (isset($_GET['page'])){
             $sup = '';
             $noproj = '';
             $action = 'ajouter';
-
-        }elseif ($_GET['page'] == 'modifier'){
-
+        }
+        elseif ($_GET['page'] == 'modifier')
+        {
             $no_emp = $_GET['no_emp'];
 
-            
-            $db = connection();
+            $db = new mysqli('localhost', 'root', "", 'afpa_test'); 
+            if($db->connect_error)
+            {
+                die('Erreur : ' .$db->connect_error);
+            }
 
-            //afficher données
-            $sql = "SELECT * FROM employe WHERE no_emp = $no_emp";
-            $rs = mysqli_query($db, $sql);
-            $selectData = mysqli_fetch_assoc($rs);
+            $query = "SELECT * FROM employe where no_emp = ? " ;
+            $stmt = $db->prepare($query);
+            $stmt->bind_param("i", $no_emp);
+            $stmt->execute();
+            $rs = $stmt->get_result();
+            $data = $rs->fetch_array(MYSQLI_ASSOC);
+        
+            $rs->free();
+            $db->close();
 
-            $no_emp = $selectData['no_emp'];
-            $nom = $selectData['nom'];
-            $prenom = $selectData['prenom'];
-            $emploi = $selectData['emploi'];
-            $embauche = $selectData['embauche'];
-            $sal = $selectData['sal'];
-            $comm = $selectData['comm'];
-            $noserv = $selectData['noserv'];
-            $sup = $selectData['sup'];
-            $noproj = $selectData['noproj'];
+            $no_emp = $data['no_emp'];
+            $nom = $data['nom'];
+            $prenom = $data['prenom'];
+            $emploi = $data['emploi'];
+            $embauche = $data['embauche'];
+            $sal = $data['sal'];
+            $comm = $data['comm'];
+            $noserv = $data['noserv'];
+            $sup = $data['sup'];
+            $noproj = $data['noproj'];
             $action = 'modifier';
-
         }
-    
 
         echo '
         <div class="formulaire">
@@ -101,88 +138,107 @@ if (isset($_GET['page'])){
         </div>
         ';
     }
-}else{
+}
+else
+{
 ?>
-
 
     <table class="table table-striped text-center">
         <thead>
-        <tr>
-            <th scope="col">no_emp</th>
-            <th scope="col">nom</th>
-            <th scope="col">prénom</th>
-            <th scope="col">emploi</th>
-            <th scope="col">embauche</th>
-            <th scope="col">sal</th>
-            <th scope="col">comm</th>
-            <th scope="col">noserv</th>
-            <th scope="col">sup</th>
-            <th scope="col">noproj</th>
-        </tr>
+            <tr>
+                <th scope="col">no_emp</th>
+                <th scope="col">nom</th>
+                <th scope="col">prénom</th>
+                <th scope="col">emploi</th>
+                <th scope="col">embauche</th>
+                <?php
+                if (isset($_SESSION['profil']) && $_SESSION['profil'] == "administrateur") 
+                    {
+                ?>
+                    <th scope="col">sal</th>
+                    <th scope="col">comm</th>
+                 <?php   
+                    }
+                ?>
+                <th scope="col">noserv</th>
+                <th scope="col">sup</th>
+                <th scope="col">noproj</th>
+            </tr>
         </thead>
+
         <tbody>
-
         <?php
-
-            $selectDatas = research();
-
-        foreach ($selectDatas as $selectData){
+            if (!empty($data)){
+            $data = research(); 
+            
+            foreach ($data as $key -> $value){
+               
 
             echo '
                 <tr>
-                    <td>'.$selectData['no_emp'].'</td>
-                    <td>'.$selectData['nom'].'</td>
-                    <td>'.$selectData['prenom'].'</td>
-                    <td>'.$selectData['emploi'].'</td>
-                    <td>'.$selectData['embauche'].'</td>
-                    <td>'.$selectData['sal'].'</td>
-                    <td>'.$selectData['comm'].'</td>
-                    <td>'.$selectData['noserv'].'</td>
-                    <td>'.$selectData['sup'].'</td>
-                    <td>'.$selectData['noproj'].'</td>
-                    <td><a href="bdd1fonc.php?page=modifier&no_emp='.$selectData['no_emp'].'" class="btn btn-warning">Modifier</button> </td>
-                    <td>';
+                    <td>'.$data['no_emp'].'</td>
+                    <td>'.$data['nom'].'</td>
+                    <td>'.$data['prenom'].'</td>
+                    <td>'.$data['emploi'].'</td>
+                    <td>'.$data['embauche'].'</td>';
 
+                    if (isset($_SESSION['profil']) && $_SESSION['profil'] == "administrateur") 
+                    {
+                        echo '
+                    <td>'.$data['sal'].'</td>
+                    <td>'.$data['comm'].'</td>';
+                    } 
+                    echo '
+                    <td>'.$data['noserv'].'</td>
+                    <td>'.$data['sup'].'</td>
+                    <td>'.$data['noproj'].'</td>';
                     
-                    $supr = supoupas();
-                    $tail=count($supr);
+                    if (isset($_SESSION['profil']) && $_SESSION['profil'] == "administrateur") 
+                    {
+                    echo' <td><a href="bdd1fonc.php?page=modifier&no_emp='.$data['no_emp'].'" class="btn btn-warning">Modifier</button> </td>
+                    <td>';
+                    }
+                    
+                    $data = supoupas();
+                    $tail=count($data);
 
-                    for ($i=0; $i < $tail; $i++) {
-
+                    for ($i=0; $i < $tail; $i++) 
+                    {
                         $trouve = false;
-
-                        if ($selectData['no_emp']== $supr[$i]['no_emp']) {
-                            
+                        if ($data['no_emp']== $data[$i]['no_emp']) 
+                        {
                             $trouve = true;
-                        break;
+                            break;
                         }
                     }
 
-                    if (!$trouve) {
-                    
+                    if (!$trouve && $_SESSION['profil'] == "administrateur") 
+                    {
                                 echo
                                     '<form method="post" action="">
-                                        <input type="hidden" name="no_emp" value="'.$selectData['no_emp'].'"> 
+                                        <input type="hidden" name="no_emp" value="'.$data['no_emp'].'"> 
                                         <button type="submit" name="supprimer" class="btn btn-danger">Supprimer</button>
                                     </form>
                                     </td>
                                 </tr>
                             ';
-                    }else {
-                        echo "Non-supr !";
                     }
+                    
+            }
         }
         ?>
         </tbody>
     </table>
 
-    <div class="row">
-        <div class="col-12 text-center">
-            <a href="bdd1fonc.php?page=ajouter" class="btn btn-success">Ajouter</a>
+        <div class="row">
+            <div class="col-12 text-center">
+                <a href="bdd1fonc.php?page=ajouter" class="btn btn-success">Ajouter</a>
+            </div>
         </div>
-    </div>
 
-<?php } ?>
+        <?php 
+        } 
+        ?>
 
 <!-- Optional JavaScript -->
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->

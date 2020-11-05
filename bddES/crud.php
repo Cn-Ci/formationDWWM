@@ -13,29 +13,26 @@ include_once ('Utilisateur.php');
             $db = new mysqli('localhost', 'root', "", 'afpa_test');    
             
             //On vérifie la connexion
-            if($db->connect_error){
+            if($db->connect_error)
+            {
                 die('Erreur : ' .$db->connect_error);
             }
-
             $stmt = $db->prepare("INSERT INTO utilisateur values ( NULL, ?, ?, 'utilisateur')");
             $stmt->bind_param("ss", $username, $password); 
             $stmt->execute();
             
             //* Verify request
-            if(!$stmt->execute()){
+            if(!$stmt->execute())
+            {
                 echo 'K.O';
             }
-        
             $db->close();
 
         } 
 
-
         function researchutilisateurMail($username) {
-   
             $db = new mysqli('localhost', 'root', "", 'afpa_test'); 
  
-
             if($db->connect_error){
                 die('Erreur : ' .$db->connect_error);
             }
@@ -53,6 +50,40 @@ include_once ('Utilisateur.php');
             return $data;
         }
 
+        function showButton($url1, $url2, $nameButton1, $nameButton2) {
+            echo "
+                <br>
+                    <a type='button' class='btn btn-primary' href='$url1'>$nameButton1</a>
+                    <a type='button' class='btn btn-primary' href='$url2'>$nameButton2</a>
+                <br>";
+        }
+
+        function utilExist(String $verifUtil) :Bool {
+            
+            $db = new mysqli('localhost', 'root', "", 'afpa_test'); 
+
+            if($db->connect_error){
+                die('Erreur : ' .$db->connect_error);
+            }
+            
+            //* SQL REQUEST
+            $existRequest = $db->prepare("SELECT * FROM utilisateur WHERE username = ?");
+            $existRequest->bind_param("s", $verifUtil);
+            $existRequest->execute();
+            $rs = $existRequest->get_result();
+            $exist = $rs->fetch_array(MYSQLI_ASSOC);
+            
+            if ($exist > 0) {
+            return true;
+            } else {
+            return false;
+            }
+            }
+            
+            
+            
+            
+            
 
        
 
