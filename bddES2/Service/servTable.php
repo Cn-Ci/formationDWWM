@@ -34,11 +34,11 @@ if (!isset ($_SESSION['username']))
         <?php 
             //*ADD SERV
             if (isset($_POST['add'])){
-                add($_POST['noserv'],$_POST['service'],$_POST['ville']);
+                add($post);
             }
             //*DELETE SERV
             if ($_GET && $_GET["action"]=="delete"){   
-                del($_GET['noserv']);
+                sup($_GET['noserv']);
             }
             //*MODIF SERV
             if (isset($_POST['modif'])){ 
@@ -117,7 +117,7 @@ if (!isset ($_SESSION['username']))
                             </tbody>
                         </table>
                         <a href="formServ.php?action=ajouter"><button type="submit" class="btn btn-primary">+ Ajouter un service</button></a>
-                        <a href="../Employe/bdd1.php "><button type="submit" class="btn btn-primary">Voir la table employes</button></a>
+                        <a href="../Employe/bdd1fonc.php "><button type="submit" class="btn btn-primary">Voir la table employes</button></a>
                     </div>
                 </div>
             </div>

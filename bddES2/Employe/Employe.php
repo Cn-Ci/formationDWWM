@@ -4,6 +4,7 @@ class Employe {
     private $no_emp;
     private $nom;
     private $prenom;
+    private $emploi;
     private $embauche;
     private $sal;
     private $comm;
@@ -11,29 +12,6 @@ class Employe {
     private $noserv;
     private $noproj;
 
-
-    public function __construct(    int $newNo_emp,
-                                    string $newNom,
-                                    string $newPrenom, 
-                                    string $newEmploi, 
-                                    string $newEmbauche, 
-                                    int $newSal, 
-                                    int $newComm,
-                                    int $newSup,
-                                    int $newNoserv,
-                                    int $newNoproj)
-    {
-        $this->no_emp = $newNo_emp;
-        $this->nom = $newNom;
-        $this->prenom = $newPrenom;
-        $this->emploi = $newEmploi;
-        $this->embauche = $newEmbauche;
-        $this->sal = $newSal;
-        $this->comm = $newComm;
-        $this->sup = $newSup;
-        $this->noserv = $newNoserv;
-        $this->noproj = $newNoproj;
-    }
 
     public function __toString() :string
     {
@@ -53,7 +31,7 @@ class Employe {
     /**
      * Get the value of no_emp
      */ 
-    public function getNo_emp()
+    public function getNo_emp():int
     {
         return $this->no_emp;
     }
@@ -63,7 +41,7 @@ class Employe {
      *
      * @return  self
      */ 
-    public function setNo_emp($no_emp)
+    public function setNo_emp($no_emp):self
     {
         $this->no_emp = $no_emp;
 
@@ -73,7 +51,7 @@ class Employe {
     /**
      * Get the value of nom
      */ 
-    public function getNom()
+    public function getNom() :string
     {
         return $this->nom;
     }
@@ -83,7 +61,7 @@ class Employe {
      *
      * @return  self
      */ 
-    public function setNom($nom)
+    public function setNom($nom) :self
     {
         $this->nom = $nom;
 
@@ -93,7 +71,7 @@ class Employe {
     /**
      * Get the value of prenom
      */ 
-    public function getPrenom()
+    public function getPrenom():string
     {
         return $this->prenom;
     }
@@ -103,17 +81,35 @@ class Employe {
      *
      * @return  self
      */ 
-    public function setPrenom($prenom)
+    public function setPrenom($prenom):self
     {
         $this->prenom = $prenom;
 
         return $this;
     }
+    /**
+     * Get the value of emploi
+     */ 
+    public function getEmploi()
+    {
+        return $this->emploi;
+    }
 
+    /**
+     * Set the value of emploi
+     *
+     * @return  self
+     */ 
+    public function setEmploi($emploi)
+    {
+        $this->emploi = $emploi;
+
+        return $this;
+    }
     /**
      * Get the value of embauche
      */ 
-    public function getEmbauche()
+    public function getEmbauche():?DateTime
     {
         return $this->embauche;
     }
@@ -123,7 +119,7 @@ class Employe {
      *
      * @return  self
      */ 
-    public function setEmbauche($embauche)
+    public function setEmbauche(?DateTime $embauche):self
     {
         $this->embauche = $embauche;
 
@@ -133,7 +129,7 @@ class Employe {
     /**
      * Get the value of sal
      */ 
-    public function getSal()
+    public function getSal():float
     {
         return $this->sal;
     }
@@ -143,7 +139,7 @@ class Employe {
      *
      * @return  self
      */ 
-    public function setSal($sal)
+    public function setSal($sal):self
     {
         $this->sal = $sal;
 
@@ -153,7 +149,7 @@ class Employe {
     /**
      * Get the value of comm
      */ 
-    public function getComm()
+    public function getComm():float
     {
         return $this->comm;
     }
@@ -163,7 +159,7 @@ class Employe {
      *
      * @return  self
      */ 
-    public function setComm($comm)
+    public function setComm($comm):self
     {
         $this->comm = $comm;
 
@@ -173,7 +169,7 @@ class Employe {
     /**
      * Get the value of sup
      */ 
-    public function getSup()
+    public function getSup():int
     {
         return $this->sup;
     }
@@ -183,7 +179,7 @@ class Employe {
      *
      * @return  self
      */ 
-    public function setSup($sup)
+    public function setSup($sup):self
     {
         $this->sup = $sup;
 
@@ -193,7 +189,7 @@ class Employe {
     /**
      * Get the value of noserv
      */ 
-    public function getNoserv()
+    public function getNoserv():int
     {
         return $this->noserv;
     }
@@ -203,7 +199,7 @@ class Employe {
      *
      * @return  self
      */ 
-    public function setNoserv($noserv)
+    public function setNoserv($noserv):self
     {
         $this->noserv = $noserv;
 
@@ -213,7 +209,7 @@ class Employe {
     /**
      * Get the value of noproj
      */ 
-    public function getNoproj()
+    public function getNoproj():int
     {
         return $this->noproj;
     }
@@ -223,11 +219,13 @@ class Employe {
      *
      * @return  self
      */ 
-    public function setNoproj($noproj)
+    public function setNoproj($noproj):self
     {
         $this->noproj = $noproj;
 
         return $this;
     }
+
+   
 }
 

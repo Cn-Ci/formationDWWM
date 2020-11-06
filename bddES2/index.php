@@ -4,7 +4,6 @@
           session_start (); 
            
 ?>
-
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -21,24 +20,23 @@
 <body>
     
 <?php
-   
-                        if (isset($_SESSION['username'])) {
-                                  echo "
-                                    <br>
-                                        <a type='button' class='btn btn-primary' href='disconnect.php'>Se déconnecter</a>
-                                        <a type='button' class='btn btn-primary' href='Employe/bdd1fonc.php'>voir la table Employe</a>
-                                        <a type='button' class='btn btn-primary' href='Service/servTable.php'>voir la table Service</a>
-                                    <br>";
-                             
-                            //* SI PAS
-                            } else {
-                                    echo "
-                                        <br>
-                                            <a type='button' class='btn btn-primary' href='formIns.php'>S'inscrire</a>
-                                            <a type='button' class='btn btn-primary' href='formCon.php'>Se connecter</a>
-                                        <br>";
-                            } 
-                    ?>
+    if (isset($_SESSION['username'])) {
+                echo "
+                <br>
+                    <a type='button' class='btn btn-primary' href='disconnect.php'>Se déconnecter</a>
+                    <a type='button' class='btn btn-primary' href='Employe/bdd.php'>voir la table Employe</a>
+                    <a type='button' class='btn btn-primary' href='Service/servTable.php'>voir la table Service</a>
+                <br>";
+            
+        //* SI PAS
+        } else {
+                echo "
+                    <br>
+                        <a type='button' class='btn btn-primary' href='formIns.php'>S'inscrire</a>
+                        <a type='button' class='btn btn-primary' href='formCon.php'>Se connecter</a>
+                    <br>";
+        } 
+?>
         
 </body>
 </html>

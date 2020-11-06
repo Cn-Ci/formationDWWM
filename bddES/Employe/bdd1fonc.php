@@ -1,6 +1,7 @@
 <?php
         
 include ('crudPoo.php');
+include_once('Employe.php');
 session_start (); 
 
 if (!isset ($_SESSION['username'])) 
@@ -28,31 +29,18 @@ if (!isset ($_SESSION['username']))
 if  (isset($_POST['ajouter']) )
 {
 
-   /*  $noemp = $_POST['no_emp'];
+    $noemp = $_POST['no_emp']; 
     $nom= is_null($_POST['nom']) ? 'NULL' : $_POST['nom'];
     $prenom= is_null($_POST['prenom']) ? 'NULL' : $_POST['prenom'];
     $emploi = is_null($_POST['emploi']) ? 'NULL' : $_POST['emploi'];
-    $embauche = is_null($_POST['embauche']) ? 'NULL' : $_POST['embauche'];
+    $embauche = empty($_POST['embauche']) ? 'NULL' : $_POST['embauche'];
     $sal = is_null($_POST['sal']) ? 'NULL' : $_POST['sal'];
     $comm = is_null($_POST['comm']) ? 'NULL' : $_POST['comm'];
     $noserv = is_null($_POST['noserv']) ? 'NULL' : $_POST['noserv'];
     $sup = is_null($_POST['sup']) ? 'NULL' : $_POST['sup'];
     $noproj = is_null($_POST['noproj']) ? 'NULL' : $_POST['noproj'];
-
-    $employe = new Employe();
-    $employe->setNoemp($noemp)
-            ->setNom($nom) 
-            ->setPrenom($prenom)
-            ->setEmploi($emploi)
-            ->setEmbauche($embauche)
-            ->setSalaire($sal)
-            ->setCommission($comm)
-            ->setSup($sup)
-            ->setNoService($noserv)
-            ->setNoProj($noproj);
-            
-            add($employe); */
-    add($post);
+     
+    add($noemp, $nom, $prenom, $emploi, $embauche, $sal, $comm, $noserv, $sup, $noproj);
 }
 
 elseif (isset($_POST['modifier']))
@@ -155,8 +143,8 @@ else
                 if (isset($_SESSION['profil']) && $_SESSION['profil'] == "administrateur") 
                     {
                 ?>
-                    <th scope="col">sal</th>
-                    <th scope="col">comm</th>
+                <th scope="col">sal</th>
+                <th scope="col">comm</th>
                  <?php   
                     }
                 ?>
@@ -168,44 +156,44 @@ else
 
         <tbody>
         <?php
-            if (!empty($data)){
-            $data = research(); 
             
-            foreach ($data as $key -> $value){
+            $dataR = research(); 
+            
+            foreach ($dataR as $value){
                
 
             echo '
                 <tr>
-                    <td>'.$data['no_emp'].'</td>
-                    <td>'.$data['nom'].'</td>
-                    <td>'.$data['prenom'].'</td>
-                    <td>'.$data['emploi'].'</td>
-                    <td>'.$data['embauche'].'</td>';
+                    <td>'.$value['no_emp'].'</td>
+                    <td>'.$value['nom'].'</td>
+                    <td>'.$value['prenom'].'</td>
+                    <td>'.$value['emploi'].'</td>
+                    <td>'.$value['embauche'].'</td>';
 
                     if (isset($_SESSION['profil']) && $_SESSION['profil'] == "administrateur") 
                     {
                         echo '
-                    <td>'.$data['sal'].'</td>
-                    <td>'.$data['comm'].'</td>';
+                    <td>'.$value['sal'].'</td>
+                    <td>'.$value['comm'].'</td>';
                     } 
                     echo '
-                    <td>'.$data['noserv'].'</td>
-                    <td>'.$data['sup'].'</td>
-                    <td>'.$data['noproj'].'</td>';
+                    <td>'.$value['noserv'].'</td>
+                    <td>'.$value['sup'].'</td>
+                    <td>'.$value['noproj'].'</td>';
                     
                     if (isset($_SESSION['profil']) && $_SESSION['profil'] == "administrateur") 
                     {
-                    echo' <td><a href="bdd1fonc.php?page=modifier&no_emp='.$data['no_emp'].'" class="btn btn-warning">Modifier</button> </td>
+                    echo' <td><a href="bdd1fonc.php?page=modifier&no_emp='.$value['no_emp'].'" class="btn btn-warning">Modifier</button> </td>
                     <td>';
                     }
                     
-                    $data = supoupas();
-                    $tail=count($data);
+                    $dataSOS = supoupas();
+                    $tail=count($dataSOS);
 
                     for ($i=0; $i < $tail; $i++) 
                     {
                         $trouve = false;
-                        if ($data['no_emp']== $data[$i]['no_emp']) 
+                        if ($value['no_emp']== $dataSOS[$i]['sup']) 
                         {
                             $trouve = true;
                             break;
@@ -216,7 +204,7 @@ else
                     {
                                 echo
                                     '<form method="post" action="">
-                                        <input type="hidden" name="no_emp" value="'.$data['no_emp'].'"> 
+                                        <input type="hidden" name="no_emp" value="'.$value['no_emp'].'"> 
                                         <button type="submit" name="supprimer" class="btn btn-danger">Supprimer</button>
                                     </form>
                                     </td>
@@ -224,7 +212,7 @@ else
                             ';
                     }
                     
-            }
+            
         }
         ?>
         </tbody>
