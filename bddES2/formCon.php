@@ -13,19 +13,17 @@
 </head>
 <body>
 
-
     <form class="tableau text-center m-5" action="traitement.php?action=connexion" method="post">
-        <div class="form-group">
-            <label for="formgr">Username :</label>
-            <input required class="form text-center" type="text" name="username" class="form-control" placeholder="Saisir votre email"> <br/><br/>
-        </div>        
-        <div class="form-group">
-            <label for="exampleInputPassword1">Mot de passe</label>
-            <input type="password" class="col-3 text-center" name="password" required>
-        </div> 
-            
-            <button class="form text-center btn btn-primary" type="submit" >Connexion</button> 
-</form>
+    <h3>Connexion</h3>
+        <input required class="col-4 text-center m-2" type="text" name="username"  placeholder="Saisir votre email"> <br/>
+        <input requided class="col-4 text-center m-2" type="password" name="password" placeholder="Saisir votre mdp"> <br/>
 
+        <button class="col-1 text-center btn btn-primary m-2" type="submit" >Envoyez</button>    
+    </form>
+    <div class="text-center">
+        <a href='index.php'>
+            <button type="submit" class="col-4 text-center btn btn-dark m-2 ">Retour à la page d'accueil</button>
+        </a>
+    </div>
 </body>
 </html>

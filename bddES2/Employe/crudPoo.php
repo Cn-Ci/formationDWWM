@@ -24,21 +24,32 @@
     if ($stmt === false) {
         printf("Message d'erreur : %s\n", $db->error);
        die();
-       }
+    }
     $stmt->bind_param('issssddiii', $noemp, $nom, $prenom, $emploi, $embauche, $sal, $comm, $noserv, $sup, $noproj);
     $stmt->execute();
    
     $db->close(); 
 }
 
-function modifier($noemp, $nom, $prenom, $emploi, $embauche, $sal, $comm, $noserv, $sup, $noproj) 
+function modifier($employe) 
 {
+    $noemp = $employe->getNo_emp();
+    $nom= $employe->getNom();
+    $prenom= $employe->getPrenom();
+    $emploi = $employe->getEmploi();
+    $embauche = $employe->getEmbauche()->format('Y-m-d');
+    $sal = $employe->getSal();
+    $comm = $employe->getComm();
+    $noserv = $employe->getNoserv();
+    $sup = $employe->getSup();
+    $noproj = $employe->getNoproj();
+
     $db = new mysqli('localhost', 'root', "", 'afpa_test'); 
     if($db->connect_error)
     {
         die('Erreur : ' .$db->connect_error);
     }
-    $query = "UPDATE employe SET nom = ? , prenom=? , emploi=?, embauche=? , sal=?, comm=?, noserv=?, sup=?, noproj=? where no_emp = ?";
+    $query = "UPDATE employe SET nom=? , prenom=? , emploi=?, embauche=? , sal=?, comm=?, noserv=?, sup=?, noproj=? where no_emp = ?";
 
     $stmt = $db->prepare($query);
 
@@ -46,15 +57,16 @@ function modifier($noemp, $nom, $prenom, $emploi, $embauche, $sal, $comm, $noser
         printf("Message d'erreur : %s\n", $db->error);
        die();
        }
-    $stmt->bind_param('issssddiii',$nom, $prenom, $emploi, $embauche, $sal, $comm, $noserv, $sup, $noproj, $noemp);
+    $stmt->bind_param('sssssddiii',$nom, $prenom, $emploi, $embauche, $sal, $comm, $noserv, $sup, $noproj, $noemp);
     $stmt->execute();
-
-    $db->close(); 
     
+    $db->close(); 
 }
         
-function supprimer($noemp)  {
-  
+function supprimer($employe)  
+{
+    $noemp = $employe->getNo_emp();
+
     $db = new mysqli('localhost', 'root', "", 'afpa_test'); 
     if($db->connect_error)
     {
@@ -114,8 +126,10 @@ function supoupas() {
     return $dataSOS;
 }
 
-function voir($noemp)
+function voir($employe)
 {
+    $noemp = $employe->getNo_emp();
+   
     $db = new mysqli('localhost', 'root', "", 'afpa_test'); 
     if($db->connect_error)
     {
@@ -130,9 +144,13 @@ function voir($noemp)
         }
     $stmt->bind_param('i', $noemp);
     $stmt->execute();
-    
-    var_dump ($stmt);
+    $rs = $stmt->get_result();
+    $dataV = $rs->fetch_all(MYSQLI_ASSOC);
+
+    $rs->free();
     $db->close();
+
+    return $dataV;
 }
 
 function showButton($url1, $url2, $nameButton1, $nameButton2) {

@@ -1,8 +1,6 @@
-<?php
-        
-          include_once ('crud.php');
-          session_start (); 
-           
+<?php      
+    include_once ('crud.php');
+    session_start ();      
 ?>
 <!DOCTYPE html>
 <html lang="fr">
@@ -18,25 +16,31 @@
     <title>Accueil</title>
 </head>
 <body>
-    
-<?php
-    if (isset($_SESSION['username'])) {
-                echo "
-                <br>
-                    <a type='button' class='btn btn-primary' href='disconnect.php'>Se déconnecter</a>
-                    <a type='button' class='btn btn-primary' href='Employe/bdd.php'>voir la table Employe</a>
-                    <a type='button' class='btn btn-primary' href='Service/servTable.php'>voir la table Service</a>
-                <br>";
-            
-        //* SI PAS
-        } else {
-                echo "
-                    <br>
-                        <a type='button' class='btn btn-primary' href='formIns.php'>S'inscrire</a>
-                        <a type='button' class='btn btn-primary' href='formCon.php'>Se connecter</a>
-                    <br>";
+    <div class='text-center m-0 p-5'>
+        <?php
+        if (isset($_SESSION['username'])) 
+        {
+            echo 
+            "
+            <br>   
+                <a type='button' class='btn btn-success col-4 m-5' href='Employe/indexEmp.php'>Voir la table Employe</a>
+                <a type='button' class='btn btn-success col-4 m-5' href='Service/indexServ.php'>Voir la table Service</a>
+            <br>
+            <a type='button' class='btn btn-danger col-4 m-5' href='disconnect.php'>Se déconnecter</a>
+            <br>
+            ";
         } 
-?>
-        
+        else 
+        {
+            echo 
+            "
+                <br>
+                    <a type='button' class='btn btn-secondary col-4 m-5' href='formIns.php'>S'inscrire</a>
+                    <a type='button' class='btn btn-success col-4 m-5' href='formCon.php'>Se connecter</a>
+                <br>
+            ";
+        } 
+        ?>
+    </div> 
 </body>
 </html>

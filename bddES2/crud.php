@@ -58,27 +58,6 @@ include_once ('Utilisateur.php');
                 <br>";
         }
 
-        function utilExist(String $verifUtil) :Bool {
-            
-            $db = new mysqli('localhost', 'root', "", 'afpa_test'); 
-
-            if($db->connect_error){
-                die('Erreur : ' .$db->connect_error);
-            }
-            
-            //* SQL REQUEST
-            $existRequest = $db->prepare("SELECT * FROM utilisateur WHERE username = ?");
-            $existRequest->bind_param("s", $verifUtil);
-            $existRequest->execute();
-            $rs = $existRequest->get_result();
-            $exist = $rs->fetch_array(MYSQLI_ASSOC);
-            
-            if ($exist > 0) {
-            return true;
-            } else {
-            return false;
-            }
-            }
             
             
             

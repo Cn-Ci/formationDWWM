@@ -35,44 +35,58 @@ if (isset($_GET["action"]) && $_GET["action"]=="add" && !empty($_POST))
             ->setNoserv(empty($_POST['noserv']) ? NULL : $_POST['noserv'])
             ->setSup(empty($_POST['sup']) ? NULL : $_POST['sup'])
             ->setNoproj(empty($_POST['noproj']) ? NULL : $_POST['noproj']);
+
     add($employe);
 }
-
 /* Modifier */
 elseif (isset($_GET["action"])  && $_GET["action"]=="modif" && isset($_GET["no_emp"]) ) 
 {
-    $noemp = empty($_POST['modifno_emp']) ? NULL : $_POST['modifno_emp']; 
-    $nom= empty($_POST['modifnom']) ? NULL : $_POST['modifnom'];
-    $prenom= empty($_POST['modifprenom']) ? NULL : $_POST['modifprenom'];
-    $emploi = empty($_POST['modifemploi']) ? NULL : $_POST['modifemploi'];
     $embauche = empty($_POST['modifembauche']) ? NULL : $_POST['modifembauche'];
-    $sal = empty($_POST['modifsal']) ? NULL : $_POST['modifsal'];
-    $comm = empty($_POST['modifcomm']) ? NULL : $_POST['modifcomm'];
-    $noserv = empty($_POST['modifnoserv']) ? NULL : $_POST['modifnoserv'];
-    $sup = empty($_POST['modifsup']) ? NULL : $_POST['modifsup'];
-    $noproj = empty($_POST['modifnoproj']) ? NULL : $_POST['modifnoproj'];
-
-    modifier($noemp, $nom, $prenom, $emploi, $embauche, $sal, $comm, $noserv, $sup, $noproj);     
-}
+    $dateEmbauche = new DateTime($embauche);
+    $employe = new Employe;
+    $employe->setNo_emp(empty($_POST['modifno_emp']) ? NULL : $_POST['modifno_emp'])
+            ->setNom(empty($_POST['modifnom']) ? NULL : $_POST['modifnom'])
+            ->setPrenom(empty($_POST['modifprenom']) ? NULL : $_POST['modifprenom'])
+            ->setEmploi(empty($_POST['modifemploi']) ? NULL : $_POST['modifemploi'])
+            ->setEmbauche($dateEmbauche)
+            ->setSal(empty($_POST['modifsal']) ? NULL : $_POST['modifsal'])
+            ->setComm(empty($_POST['modifcomm']) ? NULL : $_POST['modifcomm'])
+            ->setNoserv(empty($_POST['modifnoserv']) ? NULL : $_POST['modifnoserv'])
+            ->setSup(empty($_POST['modifsup']) ? NULL : $_POST['modifsup'])
+            ->setNoproj(empty($_POST['modifnoproj']) ? NULL : $_POST['modifnoproj']);
             
+    modifier($employe);     
+}           
         /* Supprimer */
 elseif (isset($_GET["action"]) && $_GET['action']=="delete" && isset($_GET['no_emp']))
 { 
-    $noemp = $_GET['no_emp'];
-    supprimer($noemp); 
+    $employe = new Employe;
+    $employe->setNo_emp($_GET['no_emp']);
+
+    supprimer($employe); 
 }
+
 ?>
-<!-- tableau de bdd -->
-                        <a href='../bdd_ajout.php?action=add'>
-                            <button type="submit" class="btn btn-primary"> 
-                                Ajouter un nouvel employe
-                            </button>
-                        </a>
+    <div class="text-center m-5">
+    <?php
+        if (isset($_SESSION['profil']) && $_SESSION['profil'] == "administrateur") 
+        {
+    ?>
+        <a href='formAjoutEmp.php?action=add'>
+            <button type="submit" class="col-4 text-center btn btn-primary">Ajouter un nouvel employe</button>
+        </a>
+    <?php
+        }
+    ?>
+        <a href='../index.php'>
+            <button type="submit" class="col-4 text-center btn btn-dark m-2 ">Retour à la page d'accueil</button>
+        </a>
+    </div>
 
     <div class="container-fluid">
             <div class="row">
-                <div class="col-10 m-5 ">
-                    <table class="table table-striped table-secondary">
+                <div class="col-10 mt-2 ml-5 mr-5 ">
+                    <table class="table table-dark rounded">
                         <thead class="text-center">
                                 <tr>
                                     <th>no_emp</th>
@@ -96,9 +110,10 @@ elseif (isset($_GET["action"]) && $_GET['action']=="delete" && isset($_GET['no_e
                                     if (isset($_SESSION['profil']) && $_SESSION['profil'] == "administrateur") 
                                         {
                                     ?>
+                                    
+                                    <th>Modifier</th>
+                                    <th>Consulter</th>
                                     <th>Supprimer</th>
-                                    <th>Modification</th>
-                                    <th>Modification</th>
                                     <?php   
                                         }
                                     ?>
@@ -108,11 +123,7 @@ elseif (isset($_GET["action"]) && $_GET['action']=="delete" && isset($_GET['no_e
                         <tbody class="text-center">
                             <tr>
                                 <?php
-                                /* connection a la bdd */
                                 $dataR = research(); 
-                                $dataSOS = supoupas();
-                                    $tail=count($dataSOS);
-
                                 foreach ($dataR as $value) 
                                 {   
                                     echo '
@@ -122,7 +133,6 @@ elseif (isset($_GET["action"]) && $_GET['action']=="delete" && isset($_GET['no_e
                                             <td>'.$value['prenom'].'</td>
                                             <td>'.$value['emploi'].'</td>
                                             <td>'.$value['embauche'].'</td>';
-                        
                                             if (isset($_SESSION['profil']) && $_SESSION['profil'] == "administrateur") 
                                             {
                                                 echo '
@@ -132,10 +142,18 @@ elseif (isset($_GET["action"]) && $_GET['action']=="delete" && isset($_GET['no_e
                                             echo '
                                             <td>'.$value['noserv'].'</td>
                                             <td>'.$value['sup'].'</td>
-                                            <td>'.$value['noproj'].'</td>';
-                                            
-                                            
-                                            
+                                            <td>'.$value['noproj'].'</td>
+                                            <td>
+                                                <a href=formAjoutEmp.php?action=modif&amp;no_emp='.$value['no_emp'].'>
+                                                    <button class="btn btn btn-primary"value="modif">Modifier</button>
+                                                </a>
+                                            </td>
+                                            <td>
+                                            <a href=formDetailEmp.php?action=voir&amp;no_emp='.$value['no_emp'].'>
+                                                <button class="btn btn-success"><i class="far fa-eye"></i> Consulter</button>
+                                            </a>
+                                            </td>';
+
                                             $dataSOS = supoupas();
                                             $tail=count($dataSOS);
                         
@@ -148,35 +166,18 @@ elseif (isset($_GET["action"]) && $_GET['action']=="delete" && isset($_GET['no_e
                                                     break;
                                                 }
                                             }
-                        
                                             if (!$trouve && $_SESSION['profil'] == "administrateur") 
                                             {
-                                ?>
-                                    <!-- bouton supprimer -->
-                                    <td>   
-                                        <a href="../Employe/bdd.php?action=delete&amp;no_emp=<?php echo $value['no_emp'];?>">
-                                            <button class="btn btn-danger" value='remove'>Supprimer</button>
-                                        </a>
-                                    </td>
-
-                                    <!-- bouton modifier -->
-                                    <td>
-                                        <a href="../bdd_ajout.php?action=modif&amp;no_emp=<?php echo $value['no_emp'];?>">
-                                            <button class='btn btn btn-primary'value='modif'>Modification</button>
-                                        </a>
-                                    </td> 
-
-                                    <!-- bouton consulter -->
-                                    <td>
-                                        <a href='../bdd_detail.php?action=voir&amp;no_emp=<?php echo $value['no_emp'];?>'>
-                                            <button class="btn btn-success"><i class="far fa-eye"></i> Consulter</button>
-                                        </a>
-                                    </td>
-
-                                <?php
-                                echo  "</tr>";
-                                        }
-                                } 
+                                            ?>
+                                                <td>   
+                                                    <a href="indexEmp.php?action=delete&amp;no_emp=<?php echo $value['no_emp'];?>">
+                                                        <button class="btn btn-danger" value='remove'>Supprimer</button>
+                                                    </a>
+                                                </td>
+                                            <?php
+                                            }else
+                                                echo  '<td>Non-supr !</td>';    
+                                            } 
                                 ?>
                         </tbody>
                     </table>    

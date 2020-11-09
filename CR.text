@@ -1,0 +1,14 @@
+Formation
+L 02/10 : correction exo php poo 
+		notion date time pour les années d’anciennete, 
+		insertion sql poo dans bdd, fil rouge, injection sql
+M 03/10 : connexion bdd avec inscription, cryptage hash password
+		comparer avec password verify
+M 04/10 : session et cookie avec bdd, 
+		session start, pour voir des pages en tant que admin ou utilisateur
+J 05/10 : corriger pb de connexion
+		sécuriser la connexion avec $_SESSION,
+		sécuriser le form ajout et modifier
+		réception post objet migration crud vers poo
+V 06/10 : finition migration du crud procédural a crud poo, 
+		recommencer le tableau employe car erreur
