@@ -15,4 +15,8 @@ V 06/11 : finition migration du crud procédural a crud poo,
 
 L 10/11 : Notions de architecture en couches en php, Model, Controller
 
-M 11/11:
+M 11/11: mise en place des controller dans le formulaire
+
+J 13/11: mise en place de la partie présentation
+
+V 14/11: suite présentation a finir avec notion d'interface
