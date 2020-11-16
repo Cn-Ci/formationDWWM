@@ -1,4 +1,6 @@
 <?php 
+// A faire : LOGIN, n'ajoute pas un nouvel employe, ne recupere pas et ne modifie pas
+
 session_start();
 include_once('../model/EmpService.php');
 include_once('../presentation/empIndex.php');
@@ -10,16 +12,16 @@ if (isset($_GET["action"]) && (isset($_SESSION['username'])) )
     if($_GET["action"]=="afficheEmp") 
     {
         /************************************** Tout les services */
-        $tabResearch = Empservice::research(); 
+        $dataR = Empservice::research(); 
 
         /************************************** ne peux pas sup service */
-        $tabSupOne = Empservice::supOne(); 
+        $dataSOS = Empservice::supOne(); 
 
         /************************************** Profil */
         $admin = isset($_SESSION['profil']) && $_SESSION['profil'] == 'administrateur';
 
         html();
-        empIndex($admin, $tabResearch, $tabSupOne);
+        empIndex($admin, $dataR, $dataSOS);
     }
     elseif($_GET["action"]=="add")
     {    
@@ -42,20 +44,18 @@ if (isset($_GET["action"]) && (isset($_SESSION['username'])) )
                     ->setSup(empty($_POST['sup']) ? NULL : $_POST['sup'])
                     ->setNoproj(empty($_POST['noproj']) ? NULL : $_POST['noproj']);
         
-                 
             EmpService::add($employe);
-            
             /************************************** Tout les services */
-            $tabResearch = Empservice::research(); 
+            $dataR = Empservice::research(); 
 
             /************************************** ne peux pas sup service */
-            $tabSupOne = Empservice::supOne(); 
+            $dataSOS = Empservice::supOne(); 
 
             /************************************** Profil */
             $admin = isset($_SESSION['profil']) && $_SESSION['profil'] == 'administrateur';
 
             html();
-            empIndex($admin, $tabResearch, $tabSupOne);
+            empIndex($admin, $dataR, $dataSOS);
         } 
     /************************************** Modifier */
     if($_GET["action"]=="modif" && isset($_GET['no_emp']) ) 
@@ -74,10 +74,10 @@ if (isset($_GET["action"]) && (isset($_SESSION['username'])) )
                 ->setSup(empty($_POST['sup']) ? NULL : $_POST['sup'])
                 ->setNoproj(empty($_POST['noproj']) ? NULL : $_POST['noproj']);
 
-        $objectResearch = EmpService::researchOneById($employe);   
-var_dump($objectResearch);
+        $dataV = EmpService::researchOneByNoserv($employe);   
+
         html();
-        empFormModif($objectResearch);
+        empFormModif($dataV);
         }
         if($_GET["action"]=="modifierOK") 
         {        
@@ -98,13 +98,14 @@ var_dump($objectResearch);
             EmpService::modifier($employe); 
 
             /************************************** Tout les services */
-            $tabResearch = Empservice::research(); 
+            $dataR = Empservice::research(); 
             /************************************** ne peux pas sup service */
-            $tabSupOne = Empservice::supOne(); 
+            $dataSOS = Empservice::supOne(); 
             /************************************** Profil */
             $admin = isset($_SESSION['profil']) && $_SESSION['profil'] == 'administrateur';
             html();
-            empIndex($admin, $tabResearch, $tabSupOne); 
+            empIndex($admin, $dataR, $dataSOS); 
+        
     }
     /************************************** Supprimer */
     elseif ($_GET['action']=="delete" && isset($_GET['no_emp']))
@@ -114,15 +115,15 @@ var_dump($objectResearch);
 
         EmpService::supprimer($employe); 
         /************************************** Tout les services */
-        $tabResearch = Empservice::research(); 
+        $dataR = Empservice::research(); 
 
         /************************************** ne peux pas sup service */
-        $tabSupOne = Empservice::supOne(); 
+        $dataSOS = Empservice::supOne(); 
 
         /************************************** Profil */
         $admin = isset($_SESSION['profil']) && $_SESSION['profil'] == 'administrateur';
         html();
-        empIndex($admin, $tabResearch, $tabSupOne); 
+        empIndex($admin, $dataR, $dataSOS); 
     }
     elseif($_GET['action']== "voir" && isset($_GET['no_emp']) )   
     {   
@@ -131,8 +132,8 @@ var_dump($objectResearch);
 
         $employe = new Employe;
         $employe->setNo_emp($_GET['no_emp']);
-        $objectResearch = Empservice::researchOneById($employe); 
+        $dataSOS = Empservice::researchOneByNoserv($employe); 
         html(); 
-        empDetail($admin, $objectResearch);
+        empDetail($admin, $dataSOS);
     }
 }

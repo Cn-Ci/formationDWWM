@@ -1,11 +1,9 @@
 <?php 
 include_once('Service.php');
-include_once('InterfaceDAO.php');
-include_once('ServInterface.php');
 
-class ServiceMysqliDAO implements InterfaceDAO{
+class ServiceMysqliDAO {
     
-    function add(object $service)
+    static function add(Service $service)
     {
         $noserv = $service->getNoserv();
         $serv = $service->getService();
@@ -28,7 +26,7 @@ class ServiceMysqliDAO implements InterfaceDAO{
         $db->close(); 
     }
 
-    function modifier(object $service)
+    static function modifier(Service $service)
     {
         $noserv = $service->getNoserv();
         $serv = $service->getService();
@@ -51,7 +49,7 @@ class ServiceMysqliDAO implements InterfaceDAO{
         $db->close();      
     }
 
-    function supprimer(object $service)
+    static function supprimer(Service $service)
     {
         $noserv = $service->getNoserv();
 
@@ -72,7 +70,7 @@ class ServiceMysqliDAO implements InterfaceDAO{
         $db->close(); 
     }
 
-    function research()
+    static function research()
     { 
         $db = new mysqli('localhost', 'root', "", 'afpa_test'); 
         if($db->connect_error)
@@ -92,20 +90,10 @@ class ServiceMysqliDAO implements InterfaceDAO{
         $rs->free();
         $db->close(); 
 
-        $tabResearch = array();
-        foreach ($dataR as $value) { 
-            
-            $objectResearch = new Service();
-            $objectResearch->setNoserv($value['noserv'])
-                            ->setService($value['service'])
-                            ->setVille($value['ville']);
- 
-            array_push($tabResearch, $objectResearch);
-        }
-        return $tabResearch;
+        return $dataR;
     }
 
-    function researchOneById(object $service)
+    static function researchOneByNoserv($service)
     {
         $noserv = $service->getNoserv();
     
@@ -129,15 +117,10 @@ class ServiceMysqliDAO implements InterfaceDAO{
         $rs->free();
         $db->close();
 
-        $objectResearch = new Service();
-        $objectResearch->setNoserv($dataV['noserv'])
-                        ->setService($dataV['service'])
-                        ->setVille($dataV['ville']);
-    
-        return $objectResearch;
+        return $dataV;
     }
 
-    function supOne() {
+    static function supOne() {
         $db = new mysqli('localhost', 'root', "", 'afpa_test'); 
         if($db->connect_error)
         {
@@ -153,16 +136,7 @@ class ServiceMysqliDAO implements InterfaceDAO{
         $rs->free();
         $db->close(); 
 
-        $tabSupOne = array();
-        $i=1;
-        foreach ($dataSOS as $value) { 
-            $objectResearch = new Service();
-            $objectResearch->setNoserv($value['noserv']);
-            $tabSupOne[$i]=$objectResearch->getNoserv();
-            $i++;  
-        }
-        return $tabSupOne;
-
+        return $dataSOS;
     }
 }
 ?>

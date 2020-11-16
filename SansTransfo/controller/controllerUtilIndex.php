@@ -1,4 +1,5 @@
 <?php
+// A faire : Login
 session_start();
 include_once('../model/UtilService.php');
 include_once("../presentation/utilIndex.php");  
@@ -23,7 +24,7 @@ if (isset($_GET['action']) && !empty($_GET['action']))
         }
         else
         html();
-        utilIndex();
+            utilIndex();
     }   
     elseif ($_GET['action'] == "connexion" )
     {

@@ -1,39 +1,58 @@
 <?php 
 include_once("EmployeMysqliDAO.php");
+include_once("InterfaceDAO.php");
 
-Class EmpService {
-    public static function add(Employe $employe)
+class EmpService implements InterfaceDAO
+{
+    private $employeDAO;
+
+    public function __construct(){
+        $this->employeDAO;
+    }
+    
+    public function add(object $employe)
     {   
-        EmployeMysqliDAO::add($employe);
+        EmployeMysqliDAO::add($employe); 
     }
 
-    public static function modifier(Employe $employe)
+    public function modifier(object $employe)
     {
   
         EmployeMysqliDAO::modifier($employe); 
     }
 
-    public static function supprimer(Employe $employe)
+    public function supprimer(object $employe)
     {
         EmployeMysqliDAO::supprimer($employe);
     }
 
-    public static function research()
+    public function research()
     {
-        $dataR = EmployeMysqliDAO::research();
-        return $dataR;
+        $tabResearch = EmployeMysqliDAO::research();
+        return $tabResearch;
     }
 
-    public static function researchOneByNoserv($employe)
+    public function researchOneById(object $employe)
     {
-        $dataV = EmployeMysqliDAO::researchOneByNoserv($employe);
-        return $dataV;
+        $objectResearch = EmployeMysqliDAO::researchOneById($employe);
+        return $objectResearch;
     }
 
-    public static function supOne()
+    public function supOne()
     {
-        $dataSOS = EmployeMysqliDAO::supOne();
-        return $dataSOS;
+        $tabSupOne = EmployeMysqliDAO::supOne();
+        return $tabSupOne;
     }
 
+    public function getEmployeDAO()
+    {
+        return $this->employeDAO;
+    }
+
+    public function setEmployeDAO($employeDAO)
+    {
+        $this->employeDAO = $employeDAO;
+
+        return $this;
+    }
 }

@@ -1,11 +1,9 @@
 <?php 
 include_once('Employe.php');
-include_once('InterfaceDAO.php');
-include_once('EmpInterface.php');
 
-class EmployeMysqliDAO implements InterfaceDAO{
+class EmployeMysqliDAO {
 
-    public function add(object $employe)
+    public static function add(Employe $employe)
     {
         $noemp = $employe->getNo_emp();
         $nom= $employe->getNom();
@@ -37,7 +35,7 @@ class EmployeMysqliDAO implements InterfaceDAO{
         
     }
 
-    function modifier(object $employe) 
+    static function modifier(Employe $employe) 
     {
         $noemp = $employe->getNo_emp();
         $nom= $employe->getNom();
@@ -63,7 +61,7 @@ class EmployeMysqliDAO implements InterfaceDAO{
         $db->close(); 
     }
             
-    function supprimer($employe)  
+    static function supprimer($employe)  
     {
         $noemp = $employe->getNo_emp();
 
@@ -85,7 +83,7 @@ class EmployeMysqliDAO implements InterfaceDAO{
         $db->close(); 
     }
 
-    function research() {
+    static function research() {
         
         $db = new mysqli('localhost', 'root', "", 'afpa_test'); 
         if($db->connect_error)
@@ -102,27 +100,10 @@ class EmployeMysqliDAO implements InterfaceDAO{
         $rs->free();
         $db->close(); 
 
-        $tabResearch = array();
-        foreach ($dataR as $value) { 
-            $embauche = new DateTime($value['embauche']);
-            
-            $objectResearch = new Employe();
-            $objectResearch->setNo_emp($value['no_emp'])
-                            ->setNom($value['nom'])
-                            ->setPrenom($value['prenom'])
-                            ->setEmploi($value['emploi'])
-                            ->setEmbauche($embauche)
-                            ->setSal($value['sal'])
-                            ->setComm($value['comm'])
-                            ->setNoserv($value['noserv'])
-                            ->setSup($value['sup'])
-                            ->setNoproj($value['noproj']);
-            array_push($tabResearch, $objectResearch);
-        }
-        return $tabResearch; 
+        return $dataR;
+        
     }
-
-    function researchOneById(object $employe)
+    static function researchOneByNoserv(Employe $employe)
     {
         $noemp = $employe->getNo_emp();
     
@@ -146,24 +127,10 @@ class EmployeMysqliDAO implements InterfaceDAO{
         $rs->free();
         $db->close();
 
-        $embauche = new DateTime($dataV['embauche']);
-        
-        $objectResearch = new Employe();
-        $objectResearch->setNo_emp($dataV['no_emp'])
-                        ->setNom($dataV['nom'])
-                        ->setPrenom($dataV['prenom'])
-                        ->setEmploi($dataV['emploi'])
-                        ->setEmbauche($embauche)
-                        ->setSal($dataV['sal'])
-                        ->setComm($dataV['comm'])
-                        ->setNoserv($dataV['noserv'])
-                        ->setSup($dataV['sup'])
-                        ->setNoproj($dataV['noproj']);
-    
-        return $objectResearch;
+        return $dataV;
     }
 
-    function supOne() {
+    static function supOne() {
         $db = new mysqli('localhost', 'root', "", 'afpa_test'); 
         if($db->connect_error)
         {
@@ -179,15 +146,7 @@ class EmployeMysqliDAO implements InterfaceDAO{
         $rs->free();
         $db->close(); 
 
-        $tabSupOne = array();
-        $i=1;
-        foreach ($dataSOS as $value) { 
-            $objectResearch = new Employe();
-            $objectResearch->setSup($value['sup']);
-            $tabSupOne[$i]=$objectResearch->getSup();
-            $i++;  
-        }
-        return $tabSupOne;
+        return $dataSOS;
     }
 
 

@@ -1,4 +1,6 @@
 <?php 
+// A faire : LOGIN, n'ajoute pas un nouvel employe, ne recupere pas et ne modifie pas
+
 session_start (); 
 include_once('../model/ServService.php');
 include_once('../presentation/servIndex.php');
@@ -12,7 +14,7 @@ if (isset($_GET['action']) && (isset($_SESSION['username'])))
     if($_GET["action"]=="afficheServ") 
     {
         /************************************** Tout les services */
-        $tabResearch = ServService::research(); 
+        $dataR = ServService::research(); 
 
         /************************************** ne peux pas sup service */
         $dataSOS = ServService::supOne(); 
@@ -20,7 +22,7 @@ if (isset($_GET['action']) && (isset($_SESSION['username'])))
         /************************************** Profil */
         $admin = isset($_SESSION['profil']) && $_SESSION['profil'] == 'administrateur';
         html();
-        servIndex($admin, $tabResearch, $dataSOS);
+        servIndex($admin, $dataR, $dataSOS);
     }  
     elseif($_GET['action']=="add")
     {
@@ -36,7 +38,7 @@ if (isset($_GET['action']) && (isset($_SESSION['username'])))
                 
             ServService::add($service); 
             /************************************** Tout les services */
-            $tabResearch = ServService::research(); 
+            $dataR = ServService::research(); 
 
             /************************************** ne peux pas sup service */
             $dataSOS = ServService::supOne(); 
@@ -44,7 +46,7 @@ if (isset($_GET['action']) && (isset($_SESSION['username'])))
             /************************************** Profil */
             $admin = isset($_SESSION['profil']) && $_SESSION['profil'] == 'administrateur';
             html();
-            servIndex($admin, $tabResearch, $dataSOS);
+            servIndex($admin, $dataR, $dataSOS);
         } 
     /************************************** Modifier */
     if ($_GET['action']=="modif" && isset($_GET['noserv']))
@@ -54,10 +56,10 @@ if (isset($_GET['action']) && (isset($_SESSION['username'])))
                 ->setService(empty($_POST['service']) ? NULL : $_POST['service'])
                 ->setVille(empty($_POST['ville']) ? NULL : $_POST['ville']);
 
-        $objectResearch = ServService::researchOneById($service);
+        $dataV = ServService::researchOneByNoserv($service);
         ServService::modifier($service);
         html();
-        servFormModif($objectResearch);
+        servFormModif($dataV);
     }
        if($_GET["action"]=="modifierOK") 
         {    
@@ -69,7 +71,7 @@ if (isset($_GET['action']) && (isset($_SESSION['username'])))
             ServService::modifier($service);
            
             /************************************** Tout les services */
-            $tabResearch = servService::research(); 
+            $dataR = servService::research(); 
 
             /************************************** ne peux pas sup service */
             $dataSOS = servService::supOne(); 
@@ -77,7 +79,7 @@ if (isset($_GET['action']) && (isset($_SESSION['username'])))
             /************************************** Profil */
             $admin = isset($_SESSION['profil']) && $_SESSION['profil'] == 'administrateur';
             html();
-            servIndex($admin, $tabResearch, $dataSOS);
+            servIndex($admin, $dataR, $dataSOS);
     }
     /************************************** Supprimer */
     elseif ($_GET['action']=="delete" )
@@ -87,7 +89,7 @@ if (isset($_GET['action']) && (isset($_SESSION['username'])))
     
         servService::supprimer($service);
         /************************************** Tout les services */
-        $tabResearch = servService::research(); 
+        $dataR = servService::research(); 
 
         /************************************** ne peux pas sup service */
         $dataSOS = servService::supOne(); 
@@ -95,15 +97,15 @@ if (isset($_GET['action']) && (isset($_SESSION['username'])))
         /************************************** Profil */
         $admin = isset($_SESSION['profil']) && $_SESSION['profil'] == 'administrateur';
         html();
-        servIndex($admin, $tabResearch, $dataSOS);
+        servIndex($admin, $dataR, $dataSOS);
     }
     elseif($_GET['action']== "voir" && isset($_GET['noserv']) )   
     {   
         $service = new Service;
         $service->setNoserv($_GET['noserv']);
-        $objectResearch = Servservice::researchOneById($service); 
+        $dataV = Servservice::researchOneByNoserv($service); 
         html(); 
-        servDetail($objectResearch);
+        servDetail($dataV);
     }
 }
 else

@@ -1,6 +1,6 @@
 <?php 
 
-function servIndex($admin, $tabResearch, $tabSupOne)
+function servIndex($admin, $dataR, $dataSOS)
 { 
 ?>
     <div class="text-center m-5">
@@ -44,33 +44,41 @@ function servIndex($admin, $tabResearch, $tabSupOne)
                     
                         <tbody class="text-center">
                                 <?php       
-                                    if(!empty($tabResearch))
+                                    if(!empty($dataR))
                                     { 
-                                        foreach ($tabResearch as $value) 
+                                        foreach ($dataR as $value) 
                                         {
                                             echo <<<BOUTTON
                                             <tr> 
-                                                    <td> {$value->getNoserv()}</td>
-                                                    <td> {$value->getService()}</td>
-                                                    <td> {$value->getVille()}</td>
-                                                    <td><a class="btn btn-primary" href="controllerServIndex.php?action=modif&amp;noserv={$value->getNoserv()}"> Modifier</a></td>
-                                                    <td><a class="btn btn-success" href="controllerServIndex.php?action=voir&amp;noserv={$value->getNoserv()}"> Consulter</a></td>                                 
+                                                    <td> {$value['noserv']}</td>
+                                                    <td> {$value['service']}</td>
+                                                    <td> {$value['ville']}</td>
+                                                    <td><a class="btn btn-primary" href="controllerServIndex.php?action=modif&amp;noserv={$value["noserv"]}"> Modifier</a></td>
+                                                    <td><a class="btn btn-success" href="controllerServIndex.php?action=voir&amp;noserv={$value["noserv"]}"> Consulter</a></td>                                 
 BOUTTON;                                                                               
-                                            if (!empty($tabSupOne)) 
+                                            if (!empty($dataSOS)) 
                                             {
-                                                $trouve = array_search($value->getNoserv(),$tabSupOne); 
-                                            }
-                                            if (!$trouve && $admin) 
-                                            {
+                                                $tail=count($dataSOS);
+                                                for ($i=0; $i < $tail; $i++) 
+                                                {
+                                                    $trouve = false;
+                                                    if ($value['noserv']== $dataSOS[$i]['noserv']) 
+                                                    {
+                                                        $trouve = true;
+                                                    break;
+                                                    }
+                                                }
+                                                if (!$trouve && $admin) 
+                                                {
                                                 ?>
-                                                <td>
-                                                    <a type='button' class='btn btn-danger' href='../controller/controllerServIndex.php?action=delete&noserv=<?php echo $value->getNoserv() ?>'>Supprimer</a>
-                                                </td>
+                                                <td><a type='button' class='btn btn-danger' href='../controller/controllerServIndex.php?action=delete&noserv=<?php echo $value["noserv"]; ?>'>Supprimer</a></td>
                                                 <?php 
-                                            }else 
-                                                echo '<td>Non-supr !</td>';
+                                                }else 
+                                                    echo '<td>Non-supr !</td>';
+                                                $i++;
                                             } 
-                                        }                      
+                                        } 
+                                    }                      
                                 ?>
                                 </tr>
                             </tbody>
@@ -99,14 +107,14 @@ function servFormAjout()
     </div> 
 <?php
 }
-function servFormModif($objectResearch)
+function servFormModif($dataSOS)
 {
 ?>
 <h3 class="text-center">Formulaire de modification</h3>
     <form class="tableau text-center m-5" action="../controller/controllerServIndex.php?action=modifierOK" method="post"> 
-            <input class="col-4 text-center" type="text" name="noserv" value="<?php echo $objectResearch->getNoserv()?>"> </br>
-            <input class="col-4 text-center" type="text" name="service" value="<?php echo $objectResearch->getService()?>" ><br/>
-            <input class="col-4 text-center" type="text" name="ville" value="<?php echo $objectResearch->getVille() ?>" > <br/>
+            <input class="col-4 text-center" type="text" name="noserv" value="<?php echo $dataSOS['noserv']?>"> </br>
+            <input class="col-4 text-center" type="text" name="service" value="<?php echo $dataSOS['service']?>" ><br/>
+            <input class="col-4 text-center" type="text" name="ville" value="<?php echo $dataSOS['ville']; ?>" > <br/>
 
             <input type="submit" class="btn btn-success col-1 m-2" name="modifer" value="Modifier"/>
     </form>
@@ -117,7 +125,7 @@ function servFormModif($objectResearch)
     </div> 
 <?php
 }
-function servDetail($objectResearch)
+function servDetail($dataV)
 {
 ?>
  <div class="container mt-2">
@@ -131,9 +139,9 @@ function servDetail($objectResearch)
             </thead>
             <tbody>
                 <tr>  
-                    <td><?= $objectResearch->getNoserv() ?></td>
-                    <td><?= $objectResearch->getService()?></td>
-                    <td><?php echo $objectResearch->getVille() ?></td>
+                    <td><?= $dataV['noserv'] ?></td>
+                    <td><?= $dataV['service'] ?></td>
+                    <td><?php echo $dataV['ville'] ?></td>
                 </tr>
             </tbody>
         </table> 

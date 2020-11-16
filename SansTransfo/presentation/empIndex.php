@@ -1,5 +1,5 @@
 <?php
-function empIndex($admin, $tabResearch, $tabSupOne)
+function empIndex($admin, $dataR, $dataSOS)
 {
  ?>
 
@@ -59,56 +59,64 @@ function empIndex($admin, $tabResearch, $tabSupOne)
                         <tbody class="text-center">
                             <tr>
                                 <?php
-                             if(!empty($tabResearch))
+                             if(!empty($dataR))
                              {
-                                foreach ($tabResearch as $value) 
+                                foreach ($dataR as $value) 
                                 {   
                                     echo '
                                         <tr>
-                                            <td>'.$value->getNo_emp().'</td>
-                                            <td>'.$value->getNom().'</td>
-                                            <td>'.$value->getPrenom().'</td>
-                                            <td>'.$value->getEmploi().'</td>
-                                            <td>'.$value->getEmbauche()->format('Y-m-d').'</td>';
+                                            <td>'.$value['no_emp'].'</td>
+                                            <td>'.$value['nom'].'</td>
+                                            <td>'.$value['prenom'].'</td>
+                                            <td>'.$value['emploi'].'</td>
+                                            <td>'.$value['embauche'].'</td>';
                                             if ($admin) 
                                             {
                                                 echo '
-                                            <td>'.$value->getSal().'</td>
-                                            <td>'.$value->getComm().'</td>';
+                                            <td>'.$value['sal'].'</td>
+                                            <td>'.$value['comm'].'</td>';
                                             } 
                                             echo '
-                                            <td>'.$value->getNoserv().'</td>
-                                            <td>'.$value->getSup().'</td>
-                                            <td>'.$value->getNoproj().'</td>
+                                            <td>'.$value['noserv'].'</td>
+                                            <td>'.$value['sup'].'</td>
+                                            <td>'.$value['noproj'].'</td>
                                             <td>
-                                                <a href=controllerEmpIndex.php?action=modif&amp;no_emp='.$value->getNo_emp().'>
+                                                <a href=controllerEmpIndex.php?action=modif&amp;no_emp='.$value['no_emp'].'>
                                                     <button class="btn btn btn-primary"value="modif">Modifier</button>
                                                 </a>
                                             </td>
                                             <td>
-                                            <a href=controllerEmpIndex.php?action=voir&amp;no_emp='.$value->getNo_emp().'>
+                                            <a href=controllerEmpIndex.php?action=voir&amp;no_emp='.$value['no_emp'].'>
                                                 <button class="btn btn-success"><i class="far fa-eye"></i> Consulter</button>
                                             </a>
                                             </td>';
 
-                                            if(!empty($tabSupOne))
-                                            { 
-                                                $trouve = array_search($value->getNo_emp(),$tabSupOne);   
-                                            }
-                                            if (!$trouve && $admin) 
+                                            if(!empty($dataSOS))
                                             {
+                                                $tail=count($dataSOS);
+                            
+                                                for ($i=0; $i < $tail; $i++) 
+                                                {
+                                                    $trouve = false;
+                                                    if ($value['no_emp']== $dataSOS[$i]['sup']) 
+                                                    {
+                                                        $trouve = true;
+                                                        break;
+                                                    }
+                                                }
+                                                if (!$trouve && $admin) 
+                                                {
                                                 ?>
-                                                <td>   
-                                                    <a href="../controller/controllerEmpIndex.php?action=delete&amp;no_emp=<?php echo $value->getNo_emp()?>">
-                                                        <button class="btn btn-danger" value='remove'>Supprimer</button>
-                                                    </a>
-                                                </td>
+                                                    <td>   
+                                                        <a href="../controller/controllerEmpIndex.php?action=delete&amp;no_emp=<?php echo $value['no_emp'];?>">
+                                                            <button class="btn btn-danger" value='remove'>Supprimer</button>
+                                                        </a>
+                                                    </td>
                                                 <?php
+                                                }else
+                                                    echo  '<td>Non-supr !</td>';    
+                                                } 
                                             }
-                                            else
-                                                echo  '<td>Non-supr !</td>';       
-                                            }
-                                        '</tr>';
                                 }
                                 ?>
                         </tbody>
@@ -124,17 +132,17 @@ function empFormAjout()
 ?>
 <form class="text-center m-5" action="../controller/controllerEmpIndex.php?action=ajouterOK" method="post">
        <h3>Formulaire d'inscription</h3>
-            <input class="col-6 text-center" type="number" required name="no_emp" placeholder="Saisir votre numero d'employe">
-            <input class="col-6 text-center" type="text" name="nom" placeholder="Saisir votre nom">
-            <input class="col-6 text-center" type="text" name="prenom" placeholder="Saisir votre prenom">
-            <input class="col-6 text-center" type="text" name="emploi" placeholder="Saisir votre emploi">
-            <input class="col-6 text-center" type="date" name="embauche" placeholder="Saisir votre date d'embauche">
-            <input class="col-6 text-center" type="text" name="sal" placeholder="Saisir votre salaire">
-            <input class="col-6 text-center" type="text" name="comm" placeholder="Saisir votre commission"> 
-            <input class="col-6 text-center" type="text" required name="noserv" placeholder="Saisir votre numero de service"> 
-            <input class="col-6 text-center" type="text" required name="sup" placeholder="Saisir votre numero de supérieur">
-            <input class="col-6 text-center" type="text" required name="noproj" placeholder="Saisir votre numero de projet">
-            <input class="col-6 text-center col-1 btn btn-primary m-2"  type="submit" name="ajouter" value="Envoyez"> 
+            <input class="col-4 text-center" type="number" required name="no_emp" placeholder="Saisir votre numero d'employe"></br> 
+            <input class="col-4 text-center" type="text" name="nom" placeholder="Saisir votre nom"> <br/>
+            <input class="col-4 text-center" type="text" name="prenom" placeholder="Saisir votre prenom"> <br/>
+            <input class="text-center" type="text" name="emploi" placeholder="Saisir votre emploi">
+            <input class="col-4 text-center" type="date" name="embauche" placeholder="Saisir votre date d'embauche"> <br/>
+            <input class="col-4 text-center" type="text" name="sal" placeholder="Saisir votre salaire"> <br/>
+            <input class="col-4 text-center" type="text" name="comm" placeholder="Saisir votre commission"> <br/>
+            <input class="text-center" type="text" required name="noserv" placeholder="Saisir votre numero de service"> 
+            <input class="text-center" type="text" required name="sup" placeholder="Saisir votre numero de supérieur">
+            <input class="text-center" type="text" required name="noproj" placeholder="Saisir votre numero de projet">
+            <input class="text-center col-1 btn btn-primary m-2"  type="submit" name="ajouter" value="Envoyez"> 
     </form>
     <div class="col-12 text-center mb-">
         <a href='../controller/controllerEmpIndex.php?action=afficheEmp' class='text-white'>
@@ -144,21 +152,21 @@ function empFormAjout()
 <?php    
 }
 
-function empFormModif($objectResearch)
+function empFormModif($dataV)
 {
 ?>
 <h3 class="text-center">Formulaire de modification</h3>
         <form class="tableau text-center m-5" action="../controller/controllerEmpIndex.php?action=modifierOK" method="post"> 
-                <input class="col-4 text-center" type="text" name="no_emp" value="<?php echo $objectResearch->getNo_emp()?>" > </br>
-                <input class="col-4 text-center" type="text" name="nom" value="<?php echo $objectResearch->getNom()?>" ><br/>
-                <input class="col-4 text-center" type="text" name="prenom" value="<?php echo $objectResearch->getPrenom(); ?>" > <br/>
-                <input class="col-4 text-center" type="text" name="emploi" value="<?php echo $objectResearch->getEmploi();?>" > <br/>
-                <input class="col-4 text-center" type="date" name="embauche" value="<?php echo $objectResearch->getEmbauche()->format('Y-m-d')?>" > <br/>
-                <input class="col-4 text-center" type="number" name="sal" value="<?php echo $objectResearch->getSal()?>"> <br/>
-                <input class="col-4 text-center" type="number" name="comm" value="<?php echo $objectResearch->getComm()?>" > <br/>
-                <input class="col-4 text-center" type="number" name="noserv" value="<?php echo $objectResearch->getNoserv()?>" > <br/>
-                <input class="col-4 text-center" type="number" name="sup" value="<?php echo $objectResearch->getSup()?>" placeholder="Modifier votre numero de supérieur"> <br/>
-                <input class="col-4 text-center" type="number" name="noproj" value="<?php echo $objectResearch->getNoproj()?>" placeholder="Modifier votre numero de projet"> <br/>
+                <input class="col-4 text-center" type="text" name="no_emp" value="<?php echo $dataV['no_emp']?>" > </br>
+                <input class="col-4 text-center" type="text" name="nom" value="<?php echo $dataV['nom']?>" ><br/>
+                <input class="col-4 text-center" type="text" name="prenom" value="<?php echo $dataV['prenom']; ?>" > <br/>
+                <input class="col-4 text-center" type="text" name="emploi" value="<?php echo $dataV['emploi'];?>" > <br/>
+                <input class="col-4 text-center" type="date" name="embauche" value="<?php echo $dataV['embauche']?>" > <br/>
+                <input class="col-4 text-center" type="number" name="sal" value="<?php echo $dataV['sal']?>"> <br/>
+                <input class="col-4 text-center" type="number" name="comm" value="<?php echo $dataV['comm']?>" > <br/>
+                <input class="col-4 text-center" type="number" name="noserv" value="<?php echo $dataV['noserv']?>" > <br/>
+                <input class="col-4 text-center" type="number" name="sup" value="<?php echo $dataV['sup']?>" placeholder="Modifier votre numero de supérieur"> <br/>
+                <input class="col-4 text-center" type="number" name="noproj" value="<?php echo $dataV['noproj']?>" placeholder="Modifier votre numero de projet"> <br/>
 
                 <input type="submit" class="btn btn-success col-1 m-2" value="Modifier"/>
         </form>
@@ -170,7 +178,7 @@ function empFormModif($objectResearch)
 <?php    
 }
 
-function empDetail($admin, $objectResearch)
+function empDetail($admin, $dataSOS)
 {
 ?>
 <div class="container mt-2">
@@ -198,23 +206,23 @@ function empDetail($admin, $objectResearch)
              </thead>
              <tbody>
                  <tr>  
-                     <td><?= $objectResearch->getNo_emp() ?></td>
-                     <td><?= $objectResearch->getNom() ?></td>
-                     <td><?php echo $objectResearch->getPrenom() ?></td>
-                     <td><?php echo $objectResearch->getEmploi()?></td>
-                     <td><?php echo $objectResearch->getEmbauche()->format('Y-m-d') ?></td>
+                     <td><?= $dataSOS['no_emp'] ?></td>
+                     <td><?= $dataSOS['nom'] ?></td>
+                     <td><?php echo $dataSOS['prenom']; ?></td>
+                     <td><?php echo $dataSOS['emploi'] ?></td>
+                     <td><?php echo $dataSOS['embauche']; ?></td>
                      <?php
                      if ($admin) 
                          {
                      ?>
-                     <td><?php echo $objectResearch->getSal()?></td>
-                     <td><?php echo $objectResearch->getComm()?></td>
+                     <td><?php echo $dataSOS['sal']; ?></td>
+                     <td><?php echo $dataSOS['comm']; ?></td>
                      <?php
                          }
                      ?>
-                     <td><?php echo $objectResearch->getNoserv() ?></td>
-                     <td><?php echo $objectResearch->getSup()?></td>
-                     <td><?php echo $objectResearch->getNoproj()?></td>
+                     <td><?php echo $dataSOS['noserv']; ?></td>
+                     <td><?php echo $dataSOS['sup']; ?></td>
+                     <td><?php echo $dataSOS['noproj']; ?></td>
                  </tr>
              </tbody>
          </table> 
