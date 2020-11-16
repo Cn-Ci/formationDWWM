@@ -1,9 +1,6 @@
 <?php
-
-
 function empIndex($admin, $dataR, $dataSOS)
 {
-    echo html();
  ?>
 
     <div class="text-center m-5">
@@ -132,59 +129,20 @@ function empIndex($admin, $dataR, $dataSOS)
 
 function empFormAjout()
 {
-    echo html();
 ?>
-<form class="text-center m-5" action="../controller/controllerEmpIndex.php?action=afficheEmp" method="post">
+<form class="text-center m-5" action="../controller/controllerEmpIndex.php?action=ajouterOK" method="post">
        <h3>Formulaire d'inscription</h3>
             <input class="col-4 text-center" type="number" required name="no_emp" placeholder="Saisir votre numero d'employe"></br> 
             <input class="col-4 text-center" type="text" name="nom" placeholder="Saisir votre nom"> <br/>
             <input class="col-4 text-center" type="text" name="prenom" placeholder="Saisir votre prenom"> <br/>
-            <div class="text-center" type="text" name="emploi" placeholder="Saisir votre emploi">
-                <select class="col-4">
-                    <option value="SECRETAIRE">SECRETAIRE</option>
-                    <option value="VENDEUR">VENDEUR</option>
-                    <option value="TECHNICIEN">TECHNICIEN</option>
-                    <option value="COMPTABLE">COMPTABLE</option>
-                    <option value="DIRECTEUR">DIRECTEUR</option>
-                    <option value="ANALYSTE">ANALYSTE</option>
-                    <option value="PROGRAMMEUR">PROGRAMMEUR</option>
-                    <option value="BALAYEUR">BALAYEUR</option>
-                    <option value="PUPITREUR">PUPITREUR</option>
-                </select>
-            </div>
+            <input class="text-center" type="text" name="emploi" placeholder="Saisir votre emploi">
             <input class="col-4 text-center" type="date" name="embauche" placeholder="Saisir votre date d'embauche"> <br/>
             <input class="col-4 text-center" type="text" name="sal" placeholder="Saisir votre salaire"> <br/>
             <input class="col-4 text-center" type="text" name="comm" placeholder="Saisir votre commission"> <br/>
-            <div class="text-center" type="text" required name="noserv" placeholder="Saisir votre numero de service"> 
-            <select class="col-4">
-                <option>1</option>
-                <option>2</option>
-                <option>3</option>
-                <option>4</option>
-                <option>5</option>
-                <option>6</option>
-                <option>7</option>
-            </select>
-        </div>
-            <div class="text-center" type="text" required name="sup" placeholder="Saisir votre numero de supérieur">
-                <select class="col-4">
-                    <option>1000</option>
-                    <option>1100</option>
-                    <option>1200</option>
-                    <option>1300</option>
-                    <option>1400</option>
-                    <option>1500</option>
-                    <option>1600</option>
-                </select>
-            </div>
-            <div class="text-center" type="text" required name="noproj" placeholder="Saisir votre numero de projet">
-                <select class="col-4 ">
-                    <option>101</option>
-                    <option>102</option>
-                    <option>103</option>
-                </select>
-            </div>
-            <input class="text-center col-1 btn btn-primary m-2"  type="submit" value="Envoyez"> 
+            <input class="text-center" type="text" required name="noserv" placeholder="Saisir votre numero de service"> 
+            <input class="text-center" type="text" required name="sup" placeholder="Saisir votre numero de supérieur">
+            <input class="text-center" type="text" required name="noproj" placeholder="Saisir votre numero de projet">
+            <input class="text-center col-1 btn btn-primary m-2"  type="submit" name="ajouter" value="Envoyez"> 
     </form>
     <div class="col-12 text-center mb-">
         <a href='../controller/controllerEmpIndex.php?action=afficheEmp' class='text-white'>
@@ -196,22 +154,21 @@ function empFormAjout()
 
 function empFormModif($dataV)
 {
-    echo html();
 ?>
 <h3 class="text-center">Formulaire de modification</h3>
-        <form class="tableau text-center m-5" action="../controller/controllerEmpIndex.php?action=modif&amp;no_emp=<?php echo $dataV['no_emp']?>" method="post"> 
-                <input class="col-4 text-center" type="text" name="modifno_emp" value="<?php echo $dataV['no_emp']?>" > </br>
-                <input class="col-4 text-center" type="text" name="modifnom" value="<?php echo $dataV['nom']?>" ><br/>
-                <input class="col-4 text-center" type="text" name="modifprenom" value="<?php echo $dataV['prenom']; ?>" > <br/>
-                <input class="col-4 text-center" type="text" name="modifemploi" value="<?php echo $dataV['emploi'];?>" > <br/>
-                <input class="col-4 text-center" type="date" name="modifembauche" value="<?php echo $dataV['embauche']?>" > <br/>
-                <input class="col-4 text-center" type="number" name="modifsal" value="<?php echo $dataV['sal']?>"> <br/>
-                <input class="col-4 text-center" type="number" name="modifcomm" value="<?php echo $dataV['comm']?>" > <br/>
-                <input class="col-4 text-center" type="number" name="modifnoserv" value="<?php echo $dataV['noserv']?>" > <br/>
-                <input class="col-4 text-center" type="number" name="modifsup" value="<?php echo $dataV['sup']?>" placeholder="Modifier votre numero de supérieur"> <br/>
-                <input class="col-4 text-center" type="number" name="modifnoproj" value="<?php echo $dataV['noproj']?>" placeholder="Modifier votre numero de projet"> <br/>
+        <form class="tableau text-center m-5" action="../controller/controllerEmpIndex.php?action=modifierOK" method="post"> 
+                <input class="col-4 text-center" type="text" name="no_emp" value="<?php echo $dataV['no_emp']?>" > </br>
+                <input class="col-4 text-center" type="text" name="nom" value="<?php echo $dataV['nom']?>" ><br/>
+                <input class="col-4 text-center" type="text" name="prenom" value="<?php echo $dataV['prenom']; ?>" > <br/>
+                <input class="col-4 text-center" type="text" name="emploi" value="<?php echo $dataV['emploi'];?>" > <br/>
+                <input class="col-4 text-center" type="date" name="embauche" value="<?php echo $dataV['embauche']?>" > <br/>
+                <input class="col-4 text-center" type="number" name="sal" value="<?php echo $dataV['sal']?>"> <br/>
+                <input class="col-4 text-center" type="number" name="comm" value="<?php echo $dataV['comm']?>" > <br/>
+                <input class="col-4 text-center" type="number" name="noserv" value="<?php echo $dataV['noserv']?>" > <br/>
+                <input class="col-4 text-center" type="number" name="sup" value="<?php echo $dataV['sup']?>" placeholder="Modifier votre numero de supérieur"> <br/>
+                <input class="col-4 text-center" type="number" name="noproj" value="<?php echo $dataV['noproj']?>" placeholder="Modifier votre numero de projet"> <br/>
 
-                <input type="submit" class="btn btn-success col-1 m-2" name="modifer" value="Modifier"/>
+                <input type="submit" class="btn btn-success col-1 m-2" value="Modifier"/>
         </form>
         <div class="col-12 text-center mb-">
             <a href='../controller/controllerEmpIndex.php?action=afficheEmp' class='text-white'>
@@ -223,7 +180,6 @@ function empFormModif($dataV)
 
 function empDetail($admin, $dataSOS)
 {
-    echo html();
 ?>
 <div class="container mt-2">
          <table class="table rounded table-dark m-auto">

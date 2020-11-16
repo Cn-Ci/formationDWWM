@@ -1,9 +1,7 @@
 <?php 
 
-
 function servIndex($admin, $dataR, $dataSOS)
 { 
-    echo html();
 ?>
     <div class="text-center m-5">
     <?php
@@ -93,9 +91,8 @@ BOUTTON;
 }
 function servFormAjout()
 {
-    echo html();
 ?>
-    <form class="text-center m-5" action="../controller/controllerServIndex.php?action=ajouter" method="post">
+    <form class="text-center m-5" action="../controller/controllerServIndex.php?action=ajouterOK" method="post">
         <h3>Formulaire d'inscription</h3>
         <input class="col-4 text-center" type="number" required name="noserv" placeholder="Saisir votre numero de service"> </br>
         <input class="col-4 text-center" type="text" name="service" placeholder="Saisir votre service"> <br/>
@@ -112,13 +109,12 @@ function servFormAjout()
 }
 function servFormModif($dataSOS)
 {
-    echo html();
 ?>
 <h3 class="text-center">Formulaire de modification</h3>
-    <form class="tableau text-center m-5" action="../controller/controllerServIndex.php?action=modif&noserv=<?php echo $dataSOS['noserv']?>" method="post"> 
-            <input class="col-4 text-center" type="text" name="modifnoserv" value="<?php echo $dataSOS['noserv']?>"> </br>
-            <input class="col-4 text-center" type="text" name="modifservice" value="<?php echo $dataSOS['service']?>" ><br/>
-            <input class="col-4 text-center" type="text" name="modifville" value="<?php echo $dataSOS['ville']; ?>" > <br/>
+    <form class="tableau text-center m-5" action="../controller/controllerServIndex.php?action=modifierOK" method="post"> 
+            <input class="col-4 text-center" type="text" name="noserv" value="<?php echo $dataSOS['noserv']?>"> </br>
+            <input class="col-4 text-center" type="text" name="service" value="<?php echo $dataSOS['service']?>" ><br/>
+            <input class="col-4 text-center" type="text" name="ville" value="<?php echo $dataSOS['ville']; ?>" > <br/>
 
             <input type="submit" class="btn btn-success col-1 m-2" name="modifer" value="Modifier"/>
     </form>
@@ -131,7 +127,6 @@ function servFormModif($dataSOS)
 }
 function servDetail($dataV)
 {
-    echo html();
 ?>
  <div class="container mt-2">
         <table class="table rounded text-center table-dark m-auto">

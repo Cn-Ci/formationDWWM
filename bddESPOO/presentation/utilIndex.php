@@ -17,8 +17,6 @@ function html()
 } 
 function utilIndex()    
 {    
-    echo html();
-
             echo 
             "
                 <br>
@@ -32,7 +30,6 @@ function utilIndex()
 }
 function utilConnect()
 {
-    echo html();
 ?>    
     <div class='text-center m-0 p-5'>
         <?php
@@ -50,7 +47,6 @@ function utilConnect()
 }
 function utilFormIns()
 {
-    echo html();
 ?>
 <form class="tableau text-center m-5" action="../controller/controllerUtilIndex.php?action=inscription" method="post">
         <h3>Inscription</h3>
@@ -68,7 +64,6 @@ function utilFormIns()
 }
 function utilFormCon()
 {
-    echo html();
 ?>
  <form class="tableau text-center m-5" action="../controller/controllerUtilIndex.php?action=connect" method="post">
     <h3>Connexion</h3>

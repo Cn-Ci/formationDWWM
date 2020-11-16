@@ -26,7 +26,7 @@ Class UtilService {
                 $password = password_hash($utilisateur->getPassword(), PASSWORD_DEFAULT);
                 $utilisateur->setPassword($password);
 
-                UtilisateurMysqliDAO::inserUtil($utilisateur,);
+                UtilisateurMysqliDAO::inserUtil($utilisateur);
                 header ('location: controllerUtilIndex.php');
             }
     }
@@ -39,13 +39,14 @@ Class UtilService {
             $password = $_POST['password'];
             if (password_verify($password,$data['password']))
             {
-            $_SESSION['username'] = $data['username'];
-            $_SESSION['profil'] = $data['profil'];
-            utilConnect();
+                $_SESSION['username'] = $data['username'];
+                $_SESSION['profil'] = $data['profil'];
+                return true;
+            }
         }
         else
-            header('location: controllerUtilIndex.php?erreur=notexist'); 
-        }
+            return false;
+            header('location: controllerUtilIndex.php?erreur=notexist');   
     }
     
 }

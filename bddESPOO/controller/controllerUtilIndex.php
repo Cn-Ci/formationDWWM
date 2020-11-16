@@ -8,6 +8,7 @@ if (isset($_GET['action']) && !empty($_GET['action']))
 {    
     if ($_GET['action']=="afficherInscription")   
     {
+        html();
         utilFormIns();
     } 
     elseif ($_GET['action']=="inscription")   
@@ -22,11 +23,16 @@ if (isset($_GET['action']) && !empty($_GET['action']))
             UtilService::send($utilisateur);
         }
         else
+        html();
             utilIndex();
     }   
     elseif ($_GET['action'] == "connexion" )
     {
-        utilFormCon(); 
+        html();
+        utilFormCon();  
+    }
+    elseif (($_GET['action'] == "connect"))
+    {
         if (isset($_POST['connecter']) &&
         isset($_POST['username'] ))
         {
@@ -34,21 +40,28 @@ if (isset($_GET['action']) && !empty($_GET['action']))
             $utilisateur->setUsername($_POST['username'])
                         ->setPassword($_POST['password']);
                         
-            UtilService::connecter($utilisateur);   
+            UtilService::connecter($utilisateur); 
+            if (UtilService::connecter($utilisateur))
+            {
+                html();
+                utilConnect();  
+            }
+            else 
+            {
+            header('location: controllerUtilIndex.php?erreur=notexist'); 
+            }
         }
-    }
-    elseif (($_GET['action'] == "connect"))
-    {
-        utilConnect();
     }
     elseif ($_GET['action'] == "deconnexion" )
     {
         session_destroy();
+        html();
         utilIndex();
     }  
 }
-elseif (!isset($_SESSION['username']) && !isset($_GET['action']))  
+else   
 {
+    html();
     utilIndex();
 } 
 ?>

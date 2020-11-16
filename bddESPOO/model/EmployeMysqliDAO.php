@@ -21,18 +21,18 @@ class EmployeMysqliDAO {
         {
             die('Erreur : ' .$db->connect_error);
         }
-        $query = "INSERT INTO employe VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        $stmt = $db->prepare("INSERT INTO employe VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
     
-        $stmt = $db->prepare($query);
 
-        if ($stmt === false) {
-            printf("Message d'erreur : %s\n", $db->error);
-        die();
-        }
         $stmt->bind_param('issssddiii', $noemp, $nom, $prenom, $emploi, $embauche, $sal, $comm, $noserv, $sup, $noproj);
-        $stmt->execute();
-    
+        if ($stmt->execute())
+        {
+            echo "<script>alert('employe ajouter')</script>";
+        }
+        else 
+            echo "<script>alert('non ajouter')</script>";
         $db->close(); 
+        
     }
 
     static function modifier(Employe $employe) 
@@ -47,20 +47,14 @@ class EmployeMysqliDAO {
         $noserv = $employe->getNoserv();
         $sup = $employe->getSup();
         $noproj = $employe->getNoproj();
-
+ 
         $db = new mysqli('localhost', 'root', "", 'afpa_test'); 
         if($db->connect_error)
         {
             die('Erreur : ' .$db->connect_error);
         }
-        $query = "UPDATE employe SET nom=? , prenom=? , emploi=?, embauche=? , sal=?, comm=?, noserv=?, sup=?, noproj=? where no_emp = ?";
+        $stmt = $db->prepare( "UPDATE employe SET nom=? , prenom=? , emploi=?, embauche=? , sal=?, comm=?, noserv=?, sup=?, noproj=? where no_emp = ?");
 
-        $stmt = $db->prepare($query);
-
-        if ($stmt === false) {
-            printf("Message d'erreur : %s\n", $db->error);
-        die();
-        }
         $stmt->bind_param('sssssddiii',$nom, $prenom, $emploi, $embauche, $sal, $comm, $noserv, $sup, $noproj, $noemp);
         $stmt->execute();
         
