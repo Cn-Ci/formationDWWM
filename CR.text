@@ -12,6 +12,7 @@ J 05/11 : corriger pb de connexion
 		réception post objet migration crud vers poo
 V 06/11 : finition migration du crud procédural a crud poo, 
 		recommencer le tableau employe car erreur
+________________________________________________________________________________________
 
 L 10/11 : Notions de architecture en couches en php, Model, Controller
 
@@ -20,3 +21,7 @@ M 11/11: mise en place des controller dans le formulaire
 J 13/11: mise en place de la partie présentation
 
 V 14/11: suite présentation a finir avec notion d'interface
+________________________________________________________________________________________
+
+L 16/11: finition formulaire avec présentation, transformation des tableaux en objet,
+		mise en place des interfaces, et passage de méthodes static en non static
