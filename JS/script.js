@@ -83,6 +83,7 @@ masquerBt.addEventListener("click", () => {
 var afficheDiv = document.getElementById("afficheDiv");
 var masquerDiv = document.getElementById("masquerDiv");
 
+// La méthode window.getComputedStyle() donne la  valeur calculée finale de toutes les propriétés CSS sur un élément.
 afficheDiv.addEventListener("click", () => {
     if(getComputedStyle(divTP1, divTP2).display != "block"){
     divTP1.style.display = "block";
@@ -96,6 +97,12 @@ masquerDiv.addEventListener("click", () => {
       divTP2.style.display = "none";
     } 
   }) 
+
+// OUUU
+// masquerDiv.addEventListener("click", (e) => {
+//     divTP2.style.display = "none";
+//   } 
+// }) 
     
 /* function button1(){
     if(getComputedStyle(divTP1).display != "none"){
@@ -291,18 +298,151 @@ document.body.appendChild(cb);
 // ****************************************************************************
 // ****************************************************************************
 //exo2 ****************************************************************************
-var br = document.createElement('div');
-    br.id = 'divTP4';
+var divTP4 = document.createElement('div');
+    divTP4.id = 'divTP4';
 
 var brOn = document.getElementById("brOn");
 var brOff = document.getElementById("brOff");
 
-var br = document.getElementById('br'), br;
+/* brOn.addEventListener("click", () => {
+    //Supprime br 
+    let brO = $("br").remove();
+}); */  
 
-var brs    = brOn.getElementsByTagName('br');
+/* brOn.addEventListener('click', function(e){
+    var br = document.querySelectorAll("br");
+    for(i=0; i < br.length; i++) {
+        br[i].remove();
+    }
+}); */
 
-while (brs.length !== 0){
-    brs[0].parentNode.removeChild(brs[0]);
+brOn.addEventListener("click", () => {
+    var br = document.getElementsByTagName('br');
+    for(i=0; i < br.length; i++) {
+        br[i].parentElement.removeChild(br[i]);
+    }
+}); 
+// La méthode peut lever une exception de deux façons :
+
+// Si enfant était bien un enfant de element et qu'il existe donc dans le DOM, mais qu'il a déjà été retiré, la méthode provoque l'exception suivante :​​
+// Uncaught NotFoundError: Failed to execute 'removeChild' on 'element': The node to be removed is not a child of this node.
+// si l'enfant n'existe pas dans le DOM de la page, la méthode provoque l'exception suivante :
+// Uncaught TypeError: Failed to execute 'removeChild' on 'element': parameter 1 is not of type 'Node'.
+
+/* brOn.addEventListener("click", () => {
+    var list = document.getElementById("br");
+    list.removeChild(list.childNodes[0]);
+}); */
+
+document.body.appendChild(divTP4);
+
+// ****************************************************************************
+// ****************************************************************************
+//exo3 ****************************************************************************
+
+/* var tds = document.getElementsByTagName('td');
+
+for(var i = 0; i<tds.length; i++){
+    var tdCase = tds[i];
+    tdCase.addEventListener('click', function(e){
+        var input = document.createElement('input');
+        input.type ="text";
+        var myClickedElement = e.target;
+        myClickedElement.appendChild(input);
+        document.getElementById(myClickedElement).disabled = true;
+    });
+}  */
+
+
+var table = document.getElementById("table");
+var tds = document.getElementsByTagName("td");
+
+
+for(var i = 0; i < tds.length; i++){
+    var td = tds[i];
+// quand on clique sur td     
+    td.addEventListener('click', function (e){
+        // on donne des attributs 
+        // la valeur de this sera déterminée à partir de la façon dont une fonction est appelée
+        this.setAttribute('data-clicked','yes');
+        this.setAttribute('data-text',this.innerHTML);
+
+        // on créer l'element input qui prend la place du td
+        var input = document.createElement("input");
+            input.type = "text";
+            // garder la valeur de la cellule dans l'input
+            input.value = this.innerHTML;         
+
+        // element.onblur = function() enleve le focus 
+        input.onblur = function() {               
+            var td = input.parentElement;
+            // le text de base
+            var originalText = input.parentElement.getAttribute("data-text");
+            // le nouveau text
+            var currentText = this.value;
+
+            // si le text de base est different du nouveau alors on garde le nouveau
+            if(originalText != currentText) {
+                td.removeAttribute('data-clicked');
+                td.removeAttribute('data-text');
+                td.innerHTML = currentText;
+            }
+        }
+        // clear la td quand on clique
+        this.innerHTML = "";                      
+
+        // fonction target
+        var myClickedElement = e.target;
+        myClickedElement.appendChild(input);
+        // select la valeur par défaut du input l'élément sélectionné
+        this.firstElementChild.select();          
+    })
 }
 
-document.body.appendChild(cb);
+/* var tdList = document.querySelectorAll('td');
+var input = document.createElement('input'); 
+    input.id = 'modifTable';
+
+for (i = 0; i < tdList.length; i++) {
+    tdList[i].addEventListener('click', function(e){
+        var test = e.target;
+        var tdContent = test.innerText;
+        test.replaceWith(input);
+        document.getElementById("modifTable").value = tdContent;
+
+        document.getElementById("modifTable").addEventListener('focusout', function(e){
+            e.preventDefault();
+            this.replaceWith(this.value);
+        });
+    });
+} */
+
+// CORRECTION
+var cells = document.getElementsByTagName("td");
+
+for (let i= 0; i<cells.length; i++) {
+    const element = cells[i];
+    element.addEventListener('click', function(e) {
+        //recharge
+        const tdContent = element.innerHTML;
+        //vide 
+        element.innerHTML = "";
+        //creation input
+        const input = document.createElement('input');
+        input.type = "text";
+        input.value = tdContent;
+        const target = e.target;
+        e.target.appendChild(input);
+        //focus sur input
+        input.focus();
+    
+        // lorsque tu clique ailleur (focusout)
+        input.addEventListener('focusout', function(e) {
+            const targetInput = e.target;
+            // recupere ce qui a été saisie
+            const inputContent = e.targetInput.value;
+            // met dans le td, le contenu de input
+            targetInput.parentNode.innerHTML = inputContent;
+        })
+    })
+}
