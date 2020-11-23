@@ -5,22 +5,22 @@
 		<title>JS DOM paragraph style</title>
 	</head> 
 <body>
-    <!-- <div>
+    <div>
         <p id ='text'>Exercices JQuery</p> 
         <div>
             <button id="jsstyle">Style it !</button>
         </div>
-    </div> -->
+    </div>
 
-    <!-- <div>
+    <div>
         <p>
             <a id="ggl" type="text/html" hreflang="fr" rel="nofollow" target="_self" 
             href="http://www.google.com/">Google</a>
         </p>
         <button id="values-btn">Click here to get  attributes value</button>
-    </div> -->
+    </div>
 
-     <div>
+    <div class="correction">
         <table id="myTable" border="1"> 
             <tr>
                 <td>Row1 cell1</td> 
@@ -35,16 +35,17 @@
                 <td>Row3 cell2</td> 
             </tr> 
         </table>
-        <input id="ligne">ligne</input>
-        <input id="colone">colone</input>
-        <input id="text">text</input>
+        <input id="idRow" type="number" name="row" min="1" max="3">ligne</input>
+        <input id="idCol" type="number" name="col" min="1" max="2">colone</input>
+        <input id="idText" type="text" namex="text">text</input>
+        <input id="idBtn" type="button" value="Modifier la valeur"></input>
 
-        <button id="recup">Recupere</button> 
-        <p></p>
+        <div id="message"></div>
 
+        <input id="recup" onclick="change()">  </input>
     </div>
-
-   <!--  <div>
+ 
+   <div>
         <form>
             <select id="colorSelect">
                 <option>Red</option>
@@ -54,8 +55,7 @@
             </select>
             <input id="remove-btn" type="button" value="Select and Remove">
         </form>
-        <p> </p>
-    </div> -->
+    </div>
 
 </body>
 

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="divGrandFather" style="height: 500px;width: 500px;background-color: grey;">
+        <div id="divFather" style="height: 300px;width: 300px;background-color: yellow;">
+            <div id="divSon" style="height: 200px;width: 200px;background-color: blue;"></div>
+        </div>
+    </div>
+
+    <table id="myTable" border="1"> 
+        <tr>
+            <td>Row1 cell1</td> 
+            <td>Row1 cell2</td>
+        </tr> 
+        <tr>
+            <td>Row2 cell1</td> 
+            <td>Row2 cell2</td>
+        </tr> 
+        <tr>
+            <td>Row3 cell1</td> 
+            <td>Row3 cell2</td>
+        </tr> 
+    </table>
+
+    <input type="number" name="row" id="idRow" min="1" max="3">
+    <input type="number" name="col" id="idCol" min="1" max="2">
+    <input type="text" name="text" id="idText">
+    <input type="button" id="idBtn" value="Modifier la cellule">
+
+    <form id="form-remove" action="test.php" method="GET">
+        <select id="colorSelect" name="color">
+            <option value="Rouge">Red</option>
+            <option value="Vert">Green</option>
+            <option value="blanc">White</option>
+            <option value="Noir">Black</option>
+        </select>
+        <input id="remove-btn" type="submit" value="Select and Remove">
+    </form>
+
+</body>
+<script src="jquery-3.5.1.min.js"></script>
+<script src="script.js" tye="text/javascript"></script>
+</html>
