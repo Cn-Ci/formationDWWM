@@ -48,7 +48,7 @@ function afficherOptions(array $voituresRetournees)
 {
     echo "<option value=''>-- Sélectionnez un modèle --</option>";
     foreach ($voituresRetournees as $voiture) {
-        echo "<option value='" . $voiture->modele . "'>" . $voiture->modele . "</option>";
+       echo "<option value='" . $voiture->modele . "'>" . $voiture->modele . "</option>";
     }
 }
 
@@ -64,4 +64,3 @@ function filterVoitureSelonMarqueEtModele(array $voitures, string $marque, strin
     }
     return $voituresRetournees;
 }
-

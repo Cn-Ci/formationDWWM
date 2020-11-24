@@ -16,80 +16,31 @@ quand on selectionne il appel par rapport a la maarque
 Création de la classe Voiture qui a les attributs publiques $marque et $modele
 	Création d'un fichier php qui permet de créer plusieurs voitures de marques et modèles différents
 	Un fichier Html qui va avoir deux sélect avec des marques et deuxième select sans options initialement
-
-
-    */
-
-
-
-/* $("#select").load("exoAjaxOption.html");
-
-
-$("#marque").on("submit", function (e) {
-    e.preventDefault();
-    const audi =$("#audi").val($("#").load('exoAjaxOption.html'));
-    const bmw =$("#bmw").val();
-    const mercedes =$("#mercedes").val();
-    if (audi) {
-        $("<select>").load(
-            'exoAjaxOption.html',
-            {option: audi1, audi2, audi3}
-        )
-        $.post('test.php', 
-        {prenom : prenomInput, nom : nomInput}, 
-        function() {
-            alert("insertion effectuée");
-        })
-    } else {
-        $("<div>").attr({class : "alert alert-danger", role:"alert"}).html("formulaire non rempli").appendTo($("#message").empty());
-    }
-})
-
-$(document).ready(function() {
-
-    // à la sélection d une valeur dans la liste
-    $("#marque").on('change', function() {
-        var val = $(this).val(); // on récupère la valeur de la liste
- 
-        if(val != '') {
-            $("#id_seconde_liste_deroulante").empty(); // on vide la liste des départements
-             
-            $.ajax({
-                url: 'traitement.php',
-                data: {val:val},
-                type: "POST",
-                dataType: 'json',
-                success: function(reponse) {
-                    //on rempli la seconde liste
-                    $.reponse(json, function(index, value) {
-                        $("#id_seconde_liste_deroulante").append('<option value="'+ index +'">'+ value +'</option>');
-                    });
-                }
-              , error:function(jqXHR, textStatus){
-                 alert('Error.\n' + jqXHR.responseText);
-              });
-            });
-        }
-    });
-});
  */
 
-$("#modele").load('exoAjaxOption.php');
+$("tbody").load("exoAjaxOption.php");
 
-console.log($audi)
+$("#marque").on("change", function(e){
+    const marqueSelectionnee = $("#marque :selected").val();
+    if(marqueSelectionnee){
+        $("#modele").load("exoAjaxOption.php?marque=" + marqueSelectionnee);
+        $("tbody").load("exoAjaxOption.php?marque=" + marqueSelectionnee + "&afficher=tableau");
+    } else {
+        $("#modele").load("exoAjaxOption.php?marque=");
+        $("tbody").load("exoAjaxOption.php")
+    }
+});
 
-$("#marque").change(function(e) {
-    e.preventDefault();
+$("#modele").on("change", function(e){
+    const modeleSelectionne = $("#modele :selected").val();
+    const marqueSelectionnee = $("#marque option:selected").val();
+    if(modeleSelectionne){
+        $("tbody").load("exoAjaxOption.php?marque=" + marqueSelectionnee + "&modele=" + modeleSelectionne + "&afficher=tableau");
+    } else {
+        $("tbody").load("exoAjaxOption.php?marque=" + marqueSelectionnee + "&afficher=tableau");
+    }
 
-    var marque = $('#marque option:selected').val();
-        $.each( modele, function( index , value ) {
-            console.log(value[0])
-            if (marque == value[0]){
+});
 
-                console.log(tab)
 
-        $("#modele").append("<option>" + selectedValue + "</option>")
-          
-            }
-    });
-}); 
+​

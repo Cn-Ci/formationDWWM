@@ -4,7 +4,7 @@ class Voiture {
     public $marque;
     public $modele;
  
-    function __construct(string $marque, $modele)
+    function __construct(string $marque, $modele = null)
     {
         $this->marque = $marque;
         $this->modele = $modele;
@@ -13,8 +13,8 @@ class Voiture {
     function toString()
     {
         return 
-        $this->marque 
-        . "\n" . 
-        $this->modele;
+        "[marque] = " . $this->marque 
+        .
+        "[modele] = " . $this->modele;
     }
 }

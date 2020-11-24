@@ -1,3 +1,6 @@
+<?php 
+include_once('Voiture.php');
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -12,14 +15,28 @@
     <title>Document</title>
 </head>
 <body>
-
     <select id="marque">Selectionner la marque
-        <option value="0" selected>CHOISIR</option>
+        <option value="0" selected>-- Selectionner la marque</option>
         <option value="audi">Audi</option>
         <option value="bmw">BMW</option>
         <option value="mercedes">Mercedes</option>
     </select>
-    <select id="modele">Selectionner le modele</select>
+    <select id="modele"> -- Selectionner le modele</select>
+
+    <div>
+        <table class="table table-dark">
+            <thead>
+                <tr>
+                    <th>Marque</th>
+                    <th>Modele</th>
+                </tr>
+            </thead>
+            <tbody>
+                
+            </tbody>
+        </table>
+    </div>
+
 </body>
 <script src="jquery-3.5.1.min.js"></script>
 <script src="exoAjax.js"></script>
