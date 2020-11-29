@@ -43,4 +43,10 @@ ________________________________________________________________________________
 
 L 23/11 : notion de Jquery, Ajax appel ajax load
 
-M 23/11 : exo ajax load, avec class, lier deux select et afficher un tableau selon la selection
+M 24/11 : exo ajax load, avec class, lier deux select et afficher un tableau selon la selection
+
+M 25/11 : envoi donnée php en format json
+
+J 26/11 : Try catch mis en place sur notre formulaire
+
+V 27/11 : suite mise en place try catch 

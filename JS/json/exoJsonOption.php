@@ -10,7 +10,7 @@ $voitures = [
     new Voiture('bmw', 'M5'),
     new Voiture('mercedes', 'Classe A'),
     new Voiture('mercedes', 'GLA'),
-    new Voiture('mercedes', 'C64 AMG')
+    new Voiture('mercedes', 'C63 AMG')
 ];
 
 // Si le Get n'est pas vide et qu'il y a la marque et le get "afficher

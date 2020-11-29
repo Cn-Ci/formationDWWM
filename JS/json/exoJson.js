@@ -35,7 +35,7 @@ $("#marque").on("change", function(e){
     const marqueSelectionnee = $("#marque :selected").val();
     var i = 0;
     if(marqueSelectionnee){
-        $.get("exoJsonFiltreText.php", function(data){
+        $.get("exoJsonEncode.php", function(data){
             //console.log(data);
             const voitures = JSON.parse(data);
             $.each(voitures, function() {
@@ -72,7 +72,7 @@ $("#modele").on("change", function(e){
     const marqueSelectionnee = $("#marque option:selected").val();
     var i = 0;
     if(modeleSelectionne){
-        $.get("exoJsonFiltreText.php", function(data){
+        $.get("exoJsonEncode.php", function(data){
             //console.log(data);
             const voitures = JSON.parse(data);
             console.log(modeleSelectionne)
