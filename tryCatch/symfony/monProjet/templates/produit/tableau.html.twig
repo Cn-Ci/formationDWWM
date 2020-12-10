@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    {% if error is defined %}
+        <div class="alert alert-danger" role="alert"> {{ error }}</div>
+    {% endif %}
+{#  AFFICHAGE DES FLASH  #}
+        {% for label,messages in app.flashes %}
+            <div class="container-fluid">
+                <div class="alert-{{ label }}">   {# Récupère le type #}
+                    {% for message in messages %}   {# Récupère les messages #}
+                        <p class="h2 text-center py-4">{{ message | raw }}</p>    {# Va afficher les balises html #}
+                    {% endfor %}
+                </div>
+            </div>
+        {% endfor %}
+
+    <h1 class="text-center"> Index </h1>
+
+    <table class="table table-striped table-info text-center my-4">
+        <tr>
+            <td>Designation du produit</td>
+            <td>prix du produit</td>
+            <td>couleur du produit</td>
+            <td>Btn</td>
+        </tr>
+        
+        {% for produit in produits %}
+            <tr>
+                <td><h1>{{ produit.designation }}</h1></td>
+                <td><h1>{{ produit.prix }}</h1></td>
+                <td><h1>{{ produit.couleur }}</h1></td>
+                <td> {{ include('/produit/btn.html.twig') }}</td
+            </tr>
+        {% endfor %}
+    </table>
+
+{% endblock %}

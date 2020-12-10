@@ -9,6 +9,49 @@ mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
 
 class EmployeMysqliDAO extends Connexion implements InterfaceDAO{
 
+    function filtre(object $employe) 
+    {
+        try {
+            $noemp = $employe->getNo_emp();
+            $nom= $employe->getNom();
+            $prenom= $employe->getPrenom();
+            $emploi = $employe->getEmploi();
+            $embauche = $employe->getEmbauche()->format('Y-m-d');
+            $sal = $employe->getSal();
+            $comm = $employe->getComm();
+            $noserv = $employe->getNoserv();
+            $sup = $employe->getSup();
+            $noproj = $employe->getNoproj();
+            $connexion = new Connexion();
+            $db = $connexion->connexion();
+            var_dump($employe);
+            
+            if ($employe){
+                $requete = "SELECT e.* from employe as e INNER JOIN service as s
+                            ON e.noserv = s.noserv WHERE ";
+                $i =0;
+                foreach ($employe as $key => $value){
+                    if($i > 0) {
+                        $requete = $requete . "AND" ;
+                    }
+                    $requete = $requete . $key . "='%" . $value . "%' "; 
+                    $i++;
+                }
+                $stmt = $db->prepare($requete);
+                $stmt->execute();
+                $rs = $stmt->get_result();
+                $data = $rs->fetch_all(MYSQLI_ASSOC);
+            }
+            else {
+                $data = $this->research();
+            }            
+            $db->close();
+            }
+            catch (mysqli_sql_exception $e) {
+                throw new DAOException($e->getMessage(), $e->getCode());
+            }
+    }
+
     public function add(object $employe)
     {
         try {
@@ -205,7 +248,6 @@ class EmployeMysqliDAO extends Connexion implements InterfaceDAO{
 
     function compter($date){
         try {
-
             $connexion = new Connexion();
             $db = $connexion->connexion();
             $query = "SELECT COUNT(dateDebut) AS dateDebut FROM employe WHERE DATE_FORMAT(dateDebut, '%Y-%m-%d') = ? ";

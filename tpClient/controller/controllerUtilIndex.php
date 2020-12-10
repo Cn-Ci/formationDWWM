@@ -24,8 +24,8 @@ if (isset($_GET['action']) && !empty($_GET['action']))
         {
             try {
             $utilisateur = new Utilisateur;
-            $utilisateur->setUsername($_POST['username'])
-                        ->setPassword($_POST['password']);
+            $utilisateur->setUsername(htmlentities($_POST['username']))
+                        ->setPassword(htmlentities($_POST['password']));
 
             UtilService::send($utilisateur);
             html();
@@ -55,8 +55,8 @@ if (isset($_GET['action']) && !empty($_GET['action']))
         {
             try {
                 $utilisateur = new Utilisateur;
-                $utilisateur->setUsername($_POST['username'])
-                            ->setPassword($_POST['password']);
+                $utilisateur->setUsername(htmlentities($_POST['username']))
+                            ->setPassword(htmlentities($_POST['password']));
                         
                 UtilService::connecter($utilisateur);
 

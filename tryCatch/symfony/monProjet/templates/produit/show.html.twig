@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} {{ title }} {% endblock %}
+{% block body %}
+
+    <h1 class="text-center"> Consultation du produit {{ produit.designation }} </h1>
+
+    <table class="table table-striped table-info text-center my-4">
+        <tr>
+            <td>Designation du produit</td>
+            <td>prix du produit</td>
+            <td>couleur du produit</td>
+        </tr>
+            <tr>
+                <td><h1>{{ produit.designation }}</h1></td>
+                <td><h1>{{ produit.prix }}</h1></td>
+                <td><h1>{{ produit.couleur }}</h1></td>
+            </tr>
+    </table>
+
+{% endblock %}

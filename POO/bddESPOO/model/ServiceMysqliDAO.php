@@ -11,7 +11,7 @@ class ServiceMysqliDAO implements InterfaceDAO{
         $serv = $service->getService();
         $ville = $service->getVille();
 
-        $db = new mysqli('localhost', 'root', "", 'afpa_test'); 
+        $db = new mysqli('localhost', 'root', "root", 'afpa_test'); 
         if($db->connect_error)
         {
             die('Erreur : ' .$db->connect_error);
@@ -34,7 +34,7 @@ class ServiceMysqliDAO implements InterfaceDAO{
         $serv = $service->getService();
         $ville = $service->getVille();
 
-        $db = new mysqli('localhost', 'root', "", 'afpa_test'); 
+        $db = new mysqli('localhost', 'root', "root", 'afpa_test'); 
         if($db->connect_error)
         {
             die('Erreur : ' .$db->connect_error);
@@ -55,7 +55,7 @@ class ServiceMysqliDAO implements InterfaceDAO{
     {
         $noserv = $service->getNoserv();
 
-        $db = new mysqli('localhost', 'root', "", 'afpa_test'); 
+        $db = new mysqli('localhost', 'root', "root", 'afpa_test'); 
         if($db->connect_error)
         {
             die('Erreur : ' .$db->connect_error);
@@ -74,7 +74,7 @@ class ServiceMysqliDAO implements InterfaceDAO{
 
     function research()
     { 
-        $db = new mysqli('localhost', 'root', "", 'afpa_test'); 
+        $db = new mysqli('localhost', 'root', "root", 'afpa_test'); 
         if($db->connect_error)
         {
             die('Erreur : ' .$db->connect_error);
@@ -109,7 +109,7 @@ class ServiceMysqliDAO implements InterfaceDAO{
     {
         $noserv = $service->getNoserv();
     
-        $db = new mysqli('localhost', 'root', "", 'afpa_test'); 
+        $db = new mysqli('localhost', 'root', "root", 'afpa_test'); 
         if($db->connect_error)
         {
             die('Erreur : ' .$db->connect_error);
@@ -138,7 +138,7 @@ class ServiceMysqliDAO implements InterfaceDAO{
     }
 
     function supOne() {
-        $db = new mysqli('localhost', 'root', "", 'afpa_test'); 
+        $db = new mysqli('localhost', 'root', "root", 'afpa_test'); 
         if($db->connect_error)
         {
             die('Erreur : ' .$db->connect_error);

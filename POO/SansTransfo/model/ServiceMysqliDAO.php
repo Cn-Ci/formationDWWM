@@ -9,7 +9,7 @@ class ServiceMysqliDAO {
         $serv = $service->getService();
         $ville = $service->getVille();
 
-        $db = new mysqli('localhost', 'root', "", 'afpa_test'); 
+        $db = new mysqli('localhost', 'root', "root", 'afpa_test'); 
         if($db->connect_error)
         {
             die('Erreur : ' .$db->connect_error);
@@ -32,7 +32,7 @@ class ServiceMysqliDAO {
         $serv = $service->getService();
         $ville = $service->getVille();
 
-        $db = new mysqli('localhost', 'root', "", 'afpa_test'); 
+        $db = new mysqli('localhost', 'root', "root", 'afpa_test'); 
         if($db->connect_error)
         {
             die('Erreur : ' .$db->connect_error);
@@ -53,7 +53,7 @@ class ServiceMysqliDAO {
     {
         $noserv = $service->getNoserv();
 
-        $db = new mysqli('localhost', 'root', "", 'afpa_test'); 
+        $db = new mysqli('localhost', 'root', "root", 'afpa_test'); 
         if($db->connect_error)
         {
             die('Erreur : ' .$db->connect_error);
@@ -72,7 +72,7 @@ class ServiceMysqliDAO {
 
     static function research()
     { 
-        $db = new mysqli('localhost', 'root', "", 'afpa_test'); 
+        $db = new mysqli('localhost', 'root', "root", 'afpa_test'); 
         if($db->connect_error)
         {
             die('Erreur : ' .$db->connect_error);
@@ -97,7 +97,7 @@ class ServiceMysqliDAO {
     {
         $noserv = $service->getNoserv();
     
-        $db = new mysqli('localhost', 'root', "", 'afpa_test'); 
+        $db = new mysqli('localhost', 'root', "root", 'afpa_test'); 
         if($db->connect_error)
         {
             die('Erreur : ' .$db->connect_error);
@@ -121,7 +121,7 @@ class ServiceMysqliDAO {
     }
 
     static function supOne() {
-        $db = new mysqli('localhost', 'root', "", 'afpa_test'); 
+        $db = new mysqli('localhost', 'root', "root", 'afpa_test'); 
         if($db->connect_error)
         {
             die('Erreur : ' .$db->connect_error);

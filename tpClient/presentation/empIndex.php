@@ -1,5 +1,5 @@
 <?php
-function empIndex($admin, $tabResearch, $tabSupOne, $compter, $errorCode=null){
+function empIndex($admin, $tabResearch, $tabSupOne, $compter, $errorCode=null, $filtre){
     if($errorCode && $errorCode == 23004){
         echo "<center><div class='alert alert-danger'> Erreur lors de la modification ! !</div></center>";
     }
@@ -16,24 +16,24 @@ function empIndex($admin, $tabResearch, $tabSupOne, $compter, $errorCode=null){
         echo "<center><div class='alert alert-success'> La suppression a bien été effectuée ! !</div></center>";
     }
  ?>
-
     <div class="text-center m-5">
     <?php
          if ($admin) 
         { 
-    ?>
-        </br>
-        <div id="search">
-            <label for="prenom">prenom</label>
-            <input type="text"name="prenom" /> 
-            <label for="nom">nom</label>
-            <input type="text"name="prenom" /> 
-            <label for="emploi">emploi</label>
-            <input type="text"name="emploi" /> 
-            <label for="service">service</label>
-            <input type="text"name="nom de service" /> 
+            
 
-        </div>
+            ?>
+        </br>
+        <form name="search" method="get" action="search">
+            <label for="prenom">prenom</label>
+            <input type="text"name="prenom" id="prenom"/> 
+            <label for="nom">nom</label>
+            <input type="text"name="nom" id="nom"/> 
+            <label for="emploi">emploi</label>
+            <input type="text"name="emploi" id="emploi"/> 
+            <label for="noserv">noserv</label>
+            <input type="text"name="noserv" id="noserv"/> 
+        </form>
         </br>
         <div id="compte"><?php echo $compter['dateDebut']?> est le nombre d'ajout aujourd'hui</div>
         <a href='../controller/controllerEmpIndex.php?action=add'>
@@ -47,6 +47,7 @@ function empIndex($admin, $tabResearch, $tabSupOne, $compter, $errorCode=null){
             <button type="submit" class="col-4 text-center btn btn-dark m-2 ">Retour à la page d'accueil</button>
         </a>
     </div>
+    
 
     <div class="container-fluid">
             <div class="row">
@@ -146,6 +147,30 @@ function empIndex($admin, $tabResearch, $tabSupOne, $compter, $errorCode=null){
             </div>
     </div>
 
+    </body>
+
+<script src="../JS/jquery-3.5.1.min.js"></script>
+<script src="../JS/js.js"></script>
+</html>
+<!-- <script>
+
+$( "#prenom" ).keyup(function() {
+  
+    var prenom = $(this).val()
+    $.ajax({
+                url: "../presentation/infosAjax.php",
+                type: "GET",
+                data : "prenom=" + prenom,
+                dataType: "json",
+                minLength: 1,
+                success : function(resultat, statut){
+                console.log(resultat);
+                console.log(searchPrenom($prenom))
+                }
+        });
+})
+
+</script> -->
 <?php 
 }
 

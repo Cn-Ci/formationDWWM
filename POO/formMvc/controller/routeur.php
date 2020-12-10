@@ -16,8 +16,6 @@ if(isset($_GET['action'])){
     if($_GET['action'] == 'supprimer'){
         controllerFormulaire::supprimerEntree();
     }
-
-
 }else{
     controllerAccueil::accueil();
 }

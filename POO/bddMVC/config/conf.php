@@ -9,7 +9,7 @@ class Conf {
         // Identifiant
         'login' => 'root',
         // Mot de passe
-        'password' => ''
+        'password' => 'root'
     );
 
     static public function getHostname() {

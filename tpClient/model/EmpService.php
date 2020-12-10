@@ -4,6 +4,7 @@ include_once("InterfaceDAO.php");
 include_once("DAOException.php");
 include_once('ServiceException.php');
 
+
 class EmpService implements InterfaceDAO
 {
     private $employeDAO;
@@ -12,6 +13,17 @@ class EmpService implements InterfaceDAO
         $this->employeDAO = new EmployeMysqliDAO;
     }
     
+    function filtre($employe) 
+    {
+        try {
+            $data = EmployeMysqliDAO::filtre($employe);
+            return $data;
+        }
+        catch (DAOException $de) {
+            throw new ServiceException($de->getMessage(),$de->getCode());
+        }
+    }
+
     public function compter($date)
     {
         try {

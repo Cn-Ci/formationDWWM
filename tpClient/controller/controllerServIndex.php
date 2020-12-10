@@ -52,9 +52,9 @@ if (isset($_GET['action']) && (isset($_SESSION['username'])))
         {
             try {
                 $service = new Service;
-                $service->setNoserv(empty($_POST['noserv']) ? NULL : $_POST['noserv'])
-                        ->setService(empty($_POST['service']) ? NULL : $_POST['service'])
-                        ->setVille(empty($_POST['ville']) ? NULL : $_POST['ville']);
+                $service->setNoserv(empty(htmlentities($_POST['noserv'])) ? NULL : htmlentities($_POST['noserv']))
+                        ->setService(empty(htmlentities($_POST['service'])) ? NULL : htmlentities($_POST['service']))
+                        ->setVille(empty(htmlentities($_POST['ville'])) ? NULL : htmlentities($_POST['ville']));
                     
                 ServService::add($service); 
                 /************************************** Tout les services */
@@ -78,9 +78,9 @@ if (isset($_GET['action']) && (isset($_SESSION['username'])))
     { 
         try {
             $service = new Service;
-            $service->setNoserv($_GET['noserv']) 
-                    ->setService(empty($_POST['service']) ? NULL : $_POST['service'])
-                    ->setVille(empty($_POST['ville']) ? NULL : $_POST['ville']);
+            $service->setNoserv(htmlentities($_GET['noserv'])) 
+                    ->setService(empty(htmlentities($_POST['service'])) ? NULL : htmlentities($_POST['service']))
+                    ->setVille(empty(htmlentities($_POST['ville'])) ? NULL : htmlentities($_POST['ville']));
 
             $objectResearch = ServService::researchOneById($service);
             ServService::modifier($service);
@@ -89,9 +89,9 @@ if (isset($_GET['action']) && (isset($_SESSION['username'])))
         }
         catch (ServiceException $se) {
             $service = new Service;
-            $service->setNoserv($_GET['noserv']) 
-                    ->setService(empty($_POST['service']) ? NULL : $_POST['service'])
-                    ->setVille(empty($_POST['ville']) ? NULL : $_POST['ville']);
+            $service->setNoserv(htmlentities($_GET['noserv'])) 
+                    ->setService(empty(htmlentities($_POST['service'])) ? NULL : htmlentities($_POST['service']))
+                    ->setVille(empty(htmlentities($_POST['ville'])) ? NULL : htmlentities($_POST['ville']));
 
             $objectResearch = ServService::researchOneById($service);
             ServService::modifier($service);
@@ -103,9 +103,9 @@ if (isset($_GET['action']) && (isset($_SESSION['username'])))
         {    
             try {
                 $service = new Service;
-                $service->setNoserv($_POST['noserv'])
-                ->setService(empty($_POST['service']) ? NULL : $_POST['service'])
-                    ->setVille(empty($_POST['ville']) ? NULL : $_POST['ville']);
+                $service->setNoserv(htmlentities($_POST['noserv']))
+                ->setService(empty(htmlentities($_POST['service'])) ? NULL : htmlentities($_POST['service']))
+                    ->setVille(empty(htmlentities($_POST['ville'])) ? NULL : htmlentities($_POST['ville']));
 
                 ServService::modifier($service);
                 /************************************** Tout les services */
@@ -137,7 +137,7 @@ if (isset($_GET['action']) && (isset($_SESSION['username'])))
     {  
         try {
             $service = new Service;
-            $service->setNoserv($_GET['noserv']);
+            $service->setNoserv(htmlentities($_GET['noserv']));
         
             servService::supprimer($service);
             /************************************** Tout les services */
@@ -168,15 +168,15 @@ if (isset($_GET['action']) && (isset($_SESSION['username'])))
     elseif($_GET['action']== "voir" && isset($_GET['noserv']) )   
     {   
         try {
-        $service = new Service;
-        $service->setNoserv($_GET['noserv']);
-        $objectResearch = Servservice::researchOneById($service); 
-        html(); 
-        servDetail($objectResearch);
+            $service = new Service;
+            $service->setNoserv(htmlentities($_GET['noserv']));
+            $objectResearch = Servservice::researchOneById($service); 
+            html(); 
+            servDetail($objectResearch);
         } 
         catch (ServiceException $se) {
             $service = new Service;
-            $service->setNoserv($_GET['noserv']);
+            $service->setNoserv(htmlentities($_GET['noserv']));
             $objectResearch = Servservice::researchOneById($service); 
             html(); 
             servDetail($objectResearch,23006);        

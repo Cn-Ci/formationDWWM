@@ -16,7 +16,7 @@ class EmployeMysqliDAO {
         $sup = $employe->getSup();
         $noproj = $employe->getNoproj();
         
-        $db = new mysqli('localhost', 'root', "", 'afpa_test'); 
+        $db = new mysqli('localhost', 'root', "root", 'afpa_test'); 
         if($db->connect_error)
         {
             die('Erreur : ' .$db->connect_error);
@@ -48,7 +48,7 @@ class EmployeMysqliDAO {
         $sup = $employe->getSup();
         $noproj = $employe->getNoproj();
  
-        $db = new mysqli('localhost', 'root', "", 'afpa_test'); 
+        $db = new mysqli('localhost', 'root', "root", 'afpa_test'); 
         if($db->connect_error)
         {
             die('Erreur : ' .$db->connect_error);
@@ -65,7 +65,7 @@ class EmployeMysqliDAO {
     {
         $noemp = $employe->getNo_emp();
 
-        $db = new mysqli('localhost', 'root', "", 'afpa_test'); 
+        $db = new mysqli('localhost', 'root', "root", 'afpa_test'); 
         if($db->connect_error)
         {
             die('Erreur : ' .$db->connect_error);
@@ -85,7 +85,7 @@ class EmployeMysqliDAO {
 
     static function research() {
         
-        $db = new mysqli('localhost', 'root', "", 'afpa_test'); 
+        $db = new mysqli('localhost', 'root', "root", 'afpa_test'); 
         if($db->connect_error)
         {
             die('Erreur : ' .$db->connect_error);
@@ -107,7 +107,7 @@ class EmployeMysqliDAO {
     {
         $noemp = $employe->getNo_emp();
     
-        $db = new mysqli('localhost', 'root', "", 'afpa_test'); 
+        $db = new mysqli('localhost', 'root', "root", 'afpa_test'); 
         if($db->connect_error)
         {
             die('Erreur : ' .$db->connect_error);
@@ -131,7 +131,7 @@ class EmployeMysqliDAO {
     }
 
     static function supOne() {
-        $db = new mysqli('localhost', 'root', "", 'afpa_test'); 
+        $db = new mysqli('localhost', 'root', "root", 'afpa_test'); 
         if($db->connect_error)
         {
             die('Erreur : ' .$db->connect_error);

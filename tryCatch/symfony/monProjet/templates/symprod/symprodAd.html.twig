@@ -1,0 +1,36 @@
+{% extends 'baseSymprod.html.twig' %}
+
+{% block title %}Nos magnifiques mobilier {% endblock %}
+{% block body %}
+
+<div class="container">
+    <h2 class="h1 mt-3 mb-4">Voici les mobilier de nos fournisseurs</h2>
+
+
+    <div class="row">
+
+    {% for ad in ads %}
+        <div class="col-md-4">
+            <div class="card bg-light mb-3">
+                <div class="card-heeder text-center">
+                    {{ ad.nbColis }} colis, <strong> {{ ad.price }} € / pièce</strong><br>
+                    <small>Pas encore noté</small>
+                </div>
+                <img src= {{ ad.coverImage }} alt="image"
+                style="height: 200px; width: 100%; display: block">
+
+                <div class="card-body">
+                    <h4 class="card-title"> {{ ad.title}}</h4>
+                    <p class="card-text">
+                         {{ ad.introduction }}
+                    </p>
+                    <a href="" class="btn btn-info"> {{ ad.content | raw }}</a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+    
+
+{% endblock %}

@@ -7,7 +7,7 @@ Class UtilisateurMysqliDAO {
         $username = $utilisateur->getUsername();
         $password = $utilisateur->getPassword();
 
-        $db = new mysqli('localhost', 'root', "", 'afpa_test');    
+        $db = new mysqli('localhost', 'root', "root", 'afpa_test');    
         if($db->connect_error)
         {
             die('Erreur : ' .$db->connect_error);
@@ -20,7 +20,7 @@ Class UtilisateurMysqliDAO {
     } 
 
     function researchutilisateurMail($username) {
-        $db = new mysqli('localhost', 'root', "", 'afpa_test'); 
+        $db = new mysqli('localhost', 'root', "root", 'afpa_test'); 
 
         if($db->connect_error){
             die('Erreur : ' .$db->connect_error);

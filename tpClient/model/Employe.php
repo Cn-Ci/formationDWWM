@@ -1,7 +1,7 @@
 <?php 
 
 class Employe {
-    private $DateDebut;
+    private $dateDebut;
     private $no_emp;
     private $nom;
     private $prenom;
@@ -13,16 +13,30 @@ class Employe {
     private $noserv;
     private $noproj;
 
+    // function __construct($dateDebut, $no_emp, $nom, $prenom, $emploi, $embauche, $sal, $comm, $sup, $noserv, $noproj)
+    // {
+    //     $this->dateDebut = $dateDebut;
+    //     $this->no_emp = $no_emp;
+    //     $this->nom = $nom;
+    //     $this->prenom = $prenom;
+    //     $this->emploi = $emploi;
+    //     $this->embauche = $embauche;
+    //     $this->sal = $sal;
+    //     $this->comm = $comm;
+    //     $this->sup = $sup;
+    //     $this->noserv = $noserv;
+    //     $this->noproj = $noproj;
+    // }
 
     public function getDateDebut(): DateTime
     {
-        $newDateDebut =new DateTime($this->DateDebut);
+        $newDateDebut =new DateTime($this->dateDebut);
         return $newDateDebut;
     }
 
-    public function setDateDebut($DateDebut):self
+    public function setDateDebut($dateDebut):self
     {
-        $this->DateDebut = $DateDebut;
+        $this->dateDebut = $dateDebut;
 
         return $this;
     }
@@ -152,5 +166,20 @@ class Employe {
         "\n ['noproj'] " . $this->noproj .
         "\n"
         ;
+    }
+
+    function jsonSerialize(){
+        return [
+        'dateDebut'  => $this->getDateDebut(),
+        'no_emp'     => $this->getNo_emp(),
+        'nom'        => $this->getNom(),
+        'prenom'     => $this->getPrenom(),
+        'emploi'     => $this->getEmploi(),
+        'sal'     => $this->getSal(),
+        'comm' => $this->getComm(),
+        'sup'  => $this->getSup(),
+        'noserv'  => $this->getNoserv(),
+        'noproj'   => $this->getNoproj()
+        ];
     }
 }

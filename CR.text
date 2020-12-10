@@ -50,3 +50,22 @@ M 25/11 : envoi donnée php en format json
 J 26/11 : Try catch mis en place sur notre formulaire
 
 V 27/11 : suite mise en place try catch 
+
+________________________________________________________________________________________
+
+L 30/11 : Finition try catch, exo demande pour client 
+			afficher le nombre d'ajout chaque jour
+			faire une recherche par prenom, nom, emploi, nom de service
+			
+M 1/12 : Finition exo demande pour client, correction , et notion XSS injection JS
+
+M 2/12 : Notion Symfony, installation composer, squelette, est 
+	Pb d'installation sur mon pc MAC donc réglage de certains paramètres pour l'installation
+
+J 3/12 : Suite de mise en place du squelette mais encore pb de serveur pour afficher la page .. 
+	Cherche solution pour Mac puis installation d'une machine virtuelle sur le Mac, installation
+	squelette sur windows de la machine virtuelle, réglage composer, .env, et notion de commande 
+	doctrine pour créer une base de données, aide au collègue en difficulté face à une erreur
+
+V 4/12 : Aide au collègue sans solution du formateur, résolution du pb pour les 2 collègues puis 
+	exploration du projet symfony créer et aide au collègue pour le retard avec explication  

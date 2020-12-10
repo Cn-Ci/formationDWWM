@@ -18,7 +18,7 @@ class EmployeMysqliDAO implements InterfaceDAO{
         $sup = $employe->getSup();
         $noproj = $employe->getNoproj();
         
-        $db = new mysqli('localhost', 'root', "", 'afpa_test'); 
+        $db = new mysqli('localhost', 'root', "root", 'afpa_test'); 
         if($db->connect_error)
         {
             die('Erreur : ' .$db->connect_error);
@@ -50,7 +50,7 @@ class EmployeMysqliDAO implements InterfaceDAO{
         $sup = $employe->getSup();
         $noproj = $employe->getNoproj();
  
-        $db = new mysqli('localhost', 'root', "", 'afpa_test'); 
+        $db = new mysqli('localhost', 'root', "root", 'afpa_test'); 
         if($db->connect_error)
         {
             die('Erreur : ' .$db->connect_error);
@@ -67,7 +67,7 @@ class EmployeMysqliDAO implements InterfaceDAO{
     {
         $noemp = $employe->getNo_emp();
 
-        $db = new mysqli('localhost', 'root', "", 'afpa_test'); 
+        $db = new mysqli('localhost', 'root', "root", 'afpa_test'); 
         if($db->connect_error)
         {
             die('Erreur : ' .$db->connect_error);
@@ -87,7 +87,7 @@ class EmployeMysqliDAO implements InterfaceDAO{
 
     function research() {
         
-        $db = new mysqli('localhost', 'root', "", 'afpa_test'); 
+        $db = new mysqli('localhost', 'root', "root", 'afpa_test'); 
         if($db->connect_error)
         {
             die('Erreur : ' .$db->connect_error);
@@ -126,7 +126,7 @@ class EmployeMysqliDAO implements InterfaceDAO{
     {
         $noemp = $employe->getNo_emp();
     
-        $db = new mysqli('localhost', 'root', "", 'afpa_test'); 
+        $db = new mysqli('localhost', 'root', "root", 'afpa_test'); 
         if($db->connect_error)
         {
             die('Erreur : ' .$db->connect_error);
@@ -164,7 +164,7 @@ class EmployeMysqliDAO implements InterfaceDAO{
     }
 
     function supOne() {
-        $db = new mysqli('localhost', 'root', "", 'afpa_test'); 
+        $db = new mysqli('localhost', 'root', "root", 'afpa_test'); 
         if($db->connect_error)
         {
             die('Erreur : ' .$db->connect_error);
